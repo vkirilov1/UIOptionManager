@@ -1,0 +1,304 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B352F398-613B-47B1-B7BE-F0B449935616}|DataLayer\\DataLayer.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\datalayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B352F398-613B-47B1-B7BE-F0B449935616}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\jobenums\\worklocationsysidsenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\jobenums\\worklocationsysidsenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\jobenums\\employmenttypesysidsenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\jobenums\\employmenttypesysidsenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\exceptions\\emptyuseroptionexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\exceptions\\emptyuseroptionexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\loggers\\optionlistlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\loggers\\optionlistlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\option\\baseoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\option\\baseoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\option\\mixedoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\option\\mixedoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\option\\useroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\option\\useroption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\option\\systemoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\option\\systemoption.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\optionlist\\mixedoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\optionlist\\mixedoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\optionlist\\baseoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\optionlist\\baseoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\optionlist\\systemoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\optionlist\\systemoptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\model\\optionlist\\useroptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\model\\optionlist\\useroptionlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\others\\common\\actiononlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\others\\common\\actiononlog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|c:\\users\\intel\\source\\repos\\uioptionmanager\\service\\others\\optionlistloggerdelegates\\olldelegates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A8519AC0-CDCC-4245-96C4-F04F9F6447F8}|Service\\Service.csproj|solutionrelative:service\\others\\optionlistloggerdelegates\\olldelegates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 179,
+          "SelectedChildIndex": 15,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmptyUserOptionException.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\Source\\Repos\\UIOptionManager\\Service\\Exceptions\\EmptyUserOptionException.cs",
+              "RelativeDocumentMoniker": "Service\\Exceptions\\EmptyUserOptionException.cs",
+              "ToolTip": "C:\\Users\\Intel\\Source\\Repos\\UIOptionManager\\Service\\Exceptions\\EmptyUserOptionException.cs",
+              "RelativeToolTip": "Service\\Exceptions\\EmptyUserOptionException.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T16:16:12.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "SystemOption.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\SystemOption.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\Option\\SystemOption.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\SystemOption.cs",
+              "RelativeToolTip": "Service\\Model\\Option\\SystemOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T16:10:02.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MixedOption.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\MixedOption.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\Option\\MixedOption.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\MixedOption.cs",
+              "RelativeToolTip": "Service\\Model\\Option\\MixedOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T11:06:32.829Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserOption.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\UserOption.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\Option\\UserOption.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\UserOption.cs",
+              "RelativeToolTip": "Service\\Model\\Option\\UserOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T11:04:22.299Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BaseOptionList.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\BaseOptionList.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\OptionList\\BaseOptionList.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\BaseOptionList.cs",
+              "RelativeToolTip": "Service\\Model\\OptionList\\BaseOptionList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T16:07:52.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OptionListLogger.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Loggers\\OptionListLogger.cs",
+              "RelativeDocumentMoniker": "Service\\Loggers\\OptionListLogger.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Loggers\\OptionListLogger.cs",
+              "RelativeToolTip": "Service\\Loggers\\OptionListLogger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T13:58:50.708Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UserOptionList.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\UserOptionList.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\OptionList\\UserOptionList.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\UserOptionList.cs",
+              "RelativeToolTip": "Service\\Model\\OptionList\\UserOptionList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T16:12:30.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SystemOptionList.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\SystemOptionList.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\OptionList\\SystemOptionList.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\SystemOptionList.cs",
+              "RelativeToolTip": "Service\\Model\\OptionList\\SystemOptionList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T16:12:20.259Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MixedOptionList.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\MixedOptionList.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\OptionList\\MixedOptionList.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\OptionList\\MixedOptionList.cs",
+              "RelativeToolTip": "Service\\Model\\OptionList\\MixedOptionList.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T16:12:08.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BaseOption.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\BaseOption.cs",
+              "RelativeDocumentMoniker": "Service\\Model\\Option\\BaseOption.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Model\\Option\\BaseOption.cs",
+              "RelativeToolTip": "Service\\Model\\Option\\BaseOption.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T10:56:27.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmploymentTypeSysIdsEnum.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\JobEnums\\EmploymentTypeSysIdsEnum.cs",
+              "RelativeDocumentMoniker": "Service\\JobEnums\\EmploymentTypeSysIdsEnum.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\JobEnums\\EmploymentTypeSysIdsEnum.cs",
+              "RelativeToolTip": "Service\\JobEnums\\EmploymentTypeSysIdsEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T15:02:29.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WorkLocationSysIdsEnum.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\JobEnums\\WorkLocationSysIdsEnum.cs",
+              "RelativeDocumentMoniker": "Service\\JobEnums\\WorkLocationSysIdsEnum.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\JobEnums\\WorkLocationSysIdsEnum.cs",
+              "RelativeToolTip": "Service\\JobEnums\\WorkLocationSysIdsEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T15:11:52.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\DataLayer\\Program.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Program.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\DataLayer\\Program.cs",
+              "RelativeToolTip": "DataLayer\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T13:24:36.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Program.cs",
+              "RelativeDocumentMoniker": "Service\\Program.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Program.cs",
+              "RelativeToolTip": "Service\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-20T09:10:51.962Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ActionOnLog.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Others\\Common\\ActionOnLog.cs",
+              "RelativeDocumentMoniker": "Service\\Others\\Common\\ActionOnLog.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Others\\Common\\ActionOnLog.cs",
+              "RelativeToolTip": "Service\\Others\\Common\\ActionOnLog.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T16:08:09.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OLLDelegates.cs",
+              "DocumentMoniker": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Others\\OptionListLoggerDelegates\\OLLDelegates.cs",
+              "RelativeDocumentMoniker": "Service\\Others\\OptionListLoggerDelegates\\OLLDelegates.cs",
+              "ToolTip": "C:\\Users\\Intel\\source\\repos\\UIOptionManager\\Service\\Others\\OptionListLoggerDelegates\\OLLDelegates.cs",
+              "RelativeToolTip": "Service\\Others\\OptionListLoggerDelegates\\OLLDelegates.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-22T15:59:06.338Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
