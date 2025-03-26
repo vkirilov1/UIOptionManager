@@ -1,7 +1,9 @@
-﻿namespace Service.Model.Option
+﻿using Service.Others.Identifiers.Model;
+
+namespace Service.Model.Option
 {
-    public class SystemOption<TEnum> : BaseOption where TEnum : Enum
+    public class SystemOption<T> : BaseOption where T : SystemId<T>
     {
-        public required TEnum SystemId { get; set; }
+        public required SystemId<T> SysId { get; set; }
     }
 }

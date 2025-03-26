@@ -3,9 +3,9 @@ using Service.Loggers;
 
 namespace Service.Others.OptionListLoggerDelegates
 {
-    internal class OLLDelegates
+    public class OLLDelegates
     {
-        public static readonly OptionListLogger  logger = new("Logger");
+        public static readonly OptionListLogger logger = new("Logger");
 
         public static void LogError(string error)
         {

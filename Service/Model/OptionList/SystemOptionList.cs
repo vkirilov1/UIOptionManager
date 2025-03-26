@@ -1,22 +1,33 @@
 ﻿using Service.Model.Option;
+using Service.Others.Identifiers.Model;
+using Service.Others.OptionListLoggerDelegates;
 
 namespace Service.Model.OptionList
 {
-    public class SystemOptionList<TEnum> : BaseOptionList<SystemOption<TEnum>> where TEnum : Enum
+    public class SystemOptionList<T> : BaseOptionList<SystemOption<T>> where T : SystemId<T>
     {
-        public SystemOptionList()
+        public SystemOptionList(string name, string description)
         {
-            Enum.GetValues(typeof(TEnum))
-                .Cast<TEnum>()
+            Name = name;
+            Description = description;
+            InitializeOptions();
+        }
+
+        private void InitializeOptions()
+        {
+            SystemId<T>.GetAllValues()
                 .ToList()
-                .ForEach(
-                    e => _options.Add(
-                        new SystemOption<TEnum>
-                        {
-                            SystemId = e,
-                            Value = e.ToString()
-                        }
-                    ));
+                .ForEach(sysId =>
+                {
+                    _options.Add(new SystemOption<T>
+                    {
+                        SysId = sysId,
+                        Value = sysId.Name
+                    });
+                });
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Dataloaded system options from System Identifier {typeof(T).Name} to System Option List named {Name}!");
         }
     }
 }
