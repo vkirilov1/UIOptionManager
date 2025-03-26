@@ -1,10 +1,6 @@
 ﻿namespace Service.Exceptions
 {
-    internal class EmptyUserOptionException : Exception
+    public class EmptyUserOptionException(String listName) : Exception($"Error when adding option to the list {listName}! Option cannot be empty or null!")
     {
-        public EmptyUserOptionException()
-            : base("Option cannot be empty or null!")
-        {
-        }
     }
 }

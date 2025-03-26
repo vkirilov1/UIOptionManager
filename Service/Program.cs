@@ -1,6 +1,9 @@
-﻿using Service.JobEnums;
+﻿using DataLayer.Database;
+using Microsoft.EntityFrameworkCore;
 using Service.Model.OptionList;
+using Service.Others.Identifiers.Constants;
 using Service.Others.OptionListLoggerDelegates;
+using System.Transactions;
 
 namespace Service
 {
@@ -9,9 +12,23 @@ namespace Service
 
         static void Main(string[] args)
         {
-            MixedOptionList<WorkLocationSysIdsEnum> workLocationList = new();
-            SystemOptionList<EmploymentTypeSysIdsEnum> employmentTypeList = new();
-            UserOptionList userOptionList = new();
+            using var dbContext = new DatabaseContext();
+
+            dbContext.Database.EnsureCreated();
+
+            var employmentTypeList = new SystemOptionList<SystemIdConstants.EmploymentType>("EmploymentTypeList", "Represents the types of employment.");
+
+            var workLocationListDBEntry = dbContext.MixedOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == "WorkLocations");
+
+            var workLocationList = new MixedOptionList<SystemIdConstants.WorkLocation>(workLocationListDBEntry);
+
+            var rolesListDBEntry = dbContext.UserOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == "Roles");
+
+            var rolesList = new UserOptionList(rolesListDBEntry);
 
             try
             {
@@ -21,16 +38,16 @@ namespace Service
 
                     string? workLocationValue = Console.ReadLine()?.Trim();
 
-                    workLocationList.AddUserDefinedOption(workLocationValue);
+                    workLocationList.AddUserMixedOptionToList(workLocationValue, dbContext);
                 }
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     Console.WriteLine($"Enter user option {i + 1}:");
 
                     string? userOption = Console.ReadLine()?.Trim();
 
-                    userOptionList.AddUserDefinedOption(userOption);
+                    rolesList.AddUserDefinedOption(userOption, dbContext);
                 }
             }
             catch (Exception e)
@@ -39,17 +56,23 @@ namespace Service
                 logExc(e.Message);
             }
 
-            foreach (var item in workLocationList.Options)
+            foreach (var o in workLocationList.Options)
             {
-                Console.WriteLine(item.Id + ";" + item.Value + ";" + item.SystemId);
+                String modifierName = o.SysId == null ? "null" : o.SysId.Name;
+                String modifierId = o.SysId == null ? "null" : o.SysId.Value.ToString();
+                Console.WriteLine(o.Id + ";" + o.Value + ";" + modifierName + ";" + modifierId);
             }
-            foreach (var item in employmentTypeList.Options)
+
+            foreach (var o in rolesList.Options)
             {
-                Console.WriteLine(item.Id + ";" + item.Value + ";" + item.SystemId);
+                Console.WriteLine(o.Id + ";" + o.Value + ";");
             }
-            foreach (var item in userOptionList.Options)
+
+            foreach (var o in employmentTypeList.Options)
             {
-                Console.WriteLine(item.Id + ";" + item.Value);
+                String modifierName = o.SysId == null ? "null" : o.SysId.Name;
+                String modifierId = o.SysId == null ? "null" : o.SysId.Value.ToString();
+                Console.WriteLine(o.Value + ";" + modifierName + ";" + modifierId);
             }
         }
     }

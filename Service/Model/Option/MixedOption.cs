@@ -1,7 +1,21 @@
-﻿namespace Service.Model.Option
+﻿using DataLayer.Model.Option;
+using Service.Others.Identifiers.Model;
+
+namespace Service.Model.Option
 {
-    public class MixedOption<TEnum> : BaseOption where TEnum : struct, Enum
+    public class MixedOption<T> : BaseOption where T : SystemId<T>
     {
-        public TEnum? SystemId { get; set; }
+        public int Id { get; set; }
+        public virtual SystemId<T>? SysId { get; set; }
+
+        public MixedOptionDBEntry ToDbEntry(int mixedOptionListId)
+        {
+            return new MixedOptionDBEntry
+            {
+                Value = Value,
+                SystemId = SysId?.Value,
+                MixedOptionListDBEntryId = mixedOptionListId
+            };
+        }
     }
 }

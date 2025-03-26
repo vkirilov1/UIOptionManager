@@ -3,9 +3,9 @@ using System.Text;
 
 namespace Service.Loggers
 {
-    internal class OptionListLogger : ILogger
+    public class OptionListLogger(string name) : ILogger
     {
-        private readonly string _name;
+        private readonly string _name = name;
         private static readonly string LogsFilePath;
         private static readonly object _fileLock = new();
 
@@ -24,12 +24,7 @@ namespace Service.Loggers
             Directory.CreateDirectory(logsDirectory);
         }
 
-        public OptionListLogger(string name)
-        {
-            _name = name;
-        }
-
-        public IDisposable BeginScope<TState>(TState state)
+        public IDisposable? BeginScope<TState>(TState state)
         {
             // This logger does not support scopes.
             return null;
