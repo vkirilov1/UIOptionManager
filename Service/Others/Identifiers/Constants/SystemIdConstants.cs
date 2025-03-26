@@ -21,14 +21,5 @@ namespace Service.Others.Identifiers.Constants
 
             private EmploymentType(int value, string name) : base(value, name) { }
         }
-
-        public sealed class Nikoslav : SystemId<Nikoslav>
-        {
-            public static readonly Nikoslav A = new(1, "A");
-            public static readonly Nikoslav B = new(2, "B");
-            public static readonly Nikoslav C = new(3, "C");
-
-            private Nikoslav(int value, string name) : base(value, name) { }
-        }
     }
 }
