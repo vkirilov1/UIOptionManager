@@ -12,7 +12,7 @@ namespace DataLayer.Model.OptionList
 
         public required string Name { get; set; }
 
-        public required string Description { get; set; }
+        public string? Description { get; set; }
 
         public required string SystemIdType { get; set; }
         

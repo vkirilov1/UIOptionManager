@@ -6,9 +6,8 @@ namespace Service.Model.OptionList
 {
     public class SystemOptionList<T> : BaseOptionList<SystemOption<T>> where T : SystemId<T>
     {
-        public SystemOptionList(string name, string description)
+        public SystemOptionList(string name, string? description) : base(name)
         {
-            Name = name;
             Description = description;
             InitializeOptions();
         }

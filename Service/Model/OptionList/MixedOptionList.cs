@@ -1,7 +1,9 @@
-﻿using DataLayer.Database;
+﻿using DataLayer.Model.Option;
 using DataLayer.Model.OptionList;
+using Microsoft.EntityFrameworkCore;
 using Service.Exceptions;
 using Service.Model.Option;
+using Service.Others.Factories;
 using Service.Others.Identifiers.Model;
 using Service.Others.OptionListLoggerDelegates;
 
@@ -10,89 +12,117 @@ namespace Service.Model.OptionList
     public class MixedOptionList<T> : BaseOptionList<MixedOption<T>> where T : SystemId<T>
     {
         public int Id { get; set; }
-        public MixedOptionList(MixedOptionListDBEntry dbEntry)
+
+        public MixedOptionList(string name, string? description) : base(name)
         {
-            try
+            using var dbContext = DatabaseContextFactory.Create();
+
+            var dbEntry = dbContext.MixedOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == Name);
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+
+            if (dbEntry == null)
             {
-                if (dbEntry == null)
-                {
-                    throw new TableNotFoundException(nameof(MixedOptionList<T>));
-                }
-                else
-                {
-                    Id = dbEntry.Id;
-                    Name = dbEntry.Name;
-                    Description = dbEntry.Description;
+                if (string.IsNullOrWhiteSpace(Name))
+                    throw new EmptyListNameException(GetType().Name);
 
-                    dbEntry.Options
-                        .ToList()
-                        .ForEach(option =>
-                        {
-                            if (option.SystemId.HasValue)
-                            {
-                                _options.Add(new MixedOption<T>
-                                {
-                                    SysId = SystemId<T>.FromDatabaseValue(option.SystemId.Value),
-                                    Value = option.Value
-                                });
-                            }
-                            else
-                            {
-                                _options.Add(new MixedOption<T>
-                                {
-                                    SysId = null,
-                                    Value = option.Value
-                                });
-                            }
-                        });
+                Description = description;
+                InitializeOptions();
 
-                    var logInf = new ActionOnLog(OLLDelegates.LogInformation);
-                    logInf($"Dataloaded mixed options from System Identifier {typeof(T).Name} to Mixed Option List named {Name}!");
-                }
+                var newDbEntry = new MixedOptionListDBEntry()
+                {
+                    Name = Name,
+                    Description = Description,
+                    SystemIdType = typeof(T).Name
+                };
+
+                dbContext.MixedOptionLists.Add(newDbEntry);
+                dbContext.SaveChanges();
+
+                //We are relying on the database to set the Id automatically and then use it
+                Id = newDbEntry.Id;
+
+                _options.ToList().ForEach(option =>
+                dbContext.MixedOptions.Add(new MixedOptionDBEntry()
+                {
+                    Value = option.Value,
+                    SystemId = option.SysId?.Value,
+                    MixedOptionListDBEntryId = newDbEntry.Id
+                }));
+
+                dbContext.SaveChanges();
+
+                logInf($"Created mixed option list '{Name}' with ID {Id}");
             }
-            catch (Exception e)
+            else
             {
-                var logExc = new ActionOnLog(OLLDelegates.LogError);
-                logExc(e.Message);
+                Id = dbEntry.Id;
+                Name = dbEntry.Name;
+                Description = dbEntry.Description;
+
+                dbEntry.Options
+                    .ToList()
+                    .ForEach(option =>
+                    {
+                        if (option.SystemId.HasValue)
+                        {
+                            _options.Add(new MixedOption<T>
+                            {
+                                SysId = SystemId<T>.FromDatabaseValue(option.SystemId.Value),
+                                Value = option.Value
+                            });
+                        }
+                        else
+                        {
+                            _options.Add(new MixedOption<T>
+                            {
+                                SysId = null,
+                                Value = option.Value
+                            });
+                        }
+                    });
+
+                logInf($"Dataloaded mixed options from System Identifier {typeof(T).Name} to Mixed Option List named {Name}!");
             }
         }
 
-        public void AddUserMixedOptionToList(string value, DatabaseContext dbContext)
+        public void AddUserMixedOptionToList(string value)
         {
-            try
-            {
-                if (String.IsNullOrEmpty(value))
+            using var dbContext = DatabaseContextFactory.Create();
+
+            if (string.IsNullOrEmpty(value))
+                throw new EmptyUserOptionException(Name);
+
+            if (_options.Any(opt => opt.Value == value))
+                throw new OptionAlreadyExistsException(Name, value);
+
+            var newOption = new MixedOption<T> { Value = value, SysId = null };
+            _options.Add(newOption);
+
+            dbContext.MixedOptions.Add(newOption.ToDbEntry(Id));
+            dbContext.SaveChanges();
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Adding option {value} to Mixed Option List named '{Name}'!");
+        }
+
+        private void InitializeOptions()
+        {
+            SystemId<T>.GetAllValues()
+                .ToList()
+                .ForEach(sysId =>
                 {
-                    throw new EmptyUserOptionException(Name);
-                }
-                else if (Options.Where(option => option.Value == value).FirstOrDefault() != null)
-                {
-                    throw new OptionAlreadyExistsException(Name, value);
-                }
-                else
-                {
-                    MixedOption<T> newOption = new()
+                    _options.Add(new MixedOption<T>
                     {
-                        Value = value,
-                        SysId = null
-                    };
+                        SysId = sysId,
+                        Value = sysId.Name
+                    });
+                });
 
-                    _options.Add(newOption);
-
-                    var dbEntry = newOption.ToDbEntry(Id);
-
-                    dbContext.MixedOptions.Add(dbEntry);
-                    dbContext.SaveChanges();
-
-                    var logInf = new ActionOnLog(OLLDelegates.LogInformation);
-                    logInf($"Adding option {value} to Mixed Option List named {Name}!");
-                }
-            }
-            catch (Exception e)
-            {
-                var logExc = new ActionOnLog(OLLDelegates.LogError);
-                logExc(e.Message);
-            }
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Dataloaded system options from System Identifier {typeof(T).Name} to Mixed Option List named {Name}!");
         }
     }
 }
