@@ -1,86 +1,83 @@
 ﻿using Service.Model.Option;
 using Service.Exceptions;
 using Service.Others.OptionListLoggerDelegates;
-using DataLayer.Model.OptionList;
 using Microsoft.EntityFrameworkCore;
-using DataLayer.Database;
+using DataLayer.Model.OptionList;
+using Service.Others.Factories;
 
 namespace Service.Model.OptionList
 {
     public class UserOptionList : BaseOptionList<UserOption>
     {
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
 
-        public UserOptionList(UserOptionListDBEntry dbEntry)
+        public UserOptionList(string name, string? description) : base(name)
         {
-            try
+            using var dbContext = DatabaseContextFactory.Create();
+
+            var dbEntry = dbContext.UserOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == Name);
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+
+            if (dbEntry == null)
             {
-                if (dbEntry == null)
-                {
-                    throw new TableNotFoundException(nameof(UserOptionList));
-                }
-                else
-                {
-                    Id = dbEntry.Id;
-                    Name = dbEntry.Name;
-                    Description = dbEntry.Description;
 
-                    dbEntry.Options
-                        .ToList()
-                        .ForEach(option =>
-                        {
-                            _options.Add(new UserOption
-                            {
-                                Value = option.Value
-                            });
-                        });
+                if (string.IsNullOrWhiteSpace(Name))
+                    throw new EmptyListNameException(GetType().Name);
 
-                    var logInf = new ActionOnLog(OLLDelegates.LogInformation);
-                    logInf($"Dataloaded user options to User Option List named {Name}!");
-                }
+                Description = description;
+
+                var newDbEntry = new UserOptionListDBEntry()
+                {
+                    Name = Name,
+                    Description = Description
+                };
+
+                dbContext.UserOptionLists.Add(newDbEntry);
+                dbContext.SaveChanges();
+                Id = newDbEntry.Id;
+                logInf($"Created user option list '{Name}' with ID {Id}");
             }
-            catch (Exception e)
+            else
             {
-                var logExc = new ActionOnLog(OLLDelegates.LogError);
-                logExc(e.Message);
+                Id = dbEntry.Id;
+                Name = dbEntry.Name;
+                Description = dbEntry.Description;
+
+                dbEntry.Options
+                    .ToList()
+                    .ForEach(option =>
+                    {
+                        _options.Add(new UserOption
+                        {
+                            Value = option.Value
+                        });
+                    });
+
+                logInf($"Dataloaded user options to User Option List named {Name}!");
             }
         }
 
-        public void AddUserDefinedOption(string value, DatabaseContext dbContext)
+        public void AddUserDefinedOption(string value)
         {
-            try
-            {
-                if(String.IsNullOrEmpty(value))
-                {
-                    throw new EmptyUserOptionException(Name);
-                }
-                else if (Options.Where(option => option.Value == value).FirstOrDefault() != null)
-                {
-                    throw new OptionAlreadyExistsException(Name, value);
-                }
-                else
-                {
-                    UserOption newOption = new()
-                    {
-                        Value = value
-                    };
+            using var dbContext = DatabaseContextFactory.Create();
 
-                    _options.Add(newOption);
+            if (string.IsNullOrEmpty(value))
+                throw new EmptyUserOptionException(Name);
 
-                    var dbEntry = newOption.ToDbEntry(Id);
+            if (_options.Any(opt => opt.Value == value))
+                throw new OptionAlreadyExistsException(Name, value);
 
-                    dbContext.UserOptions.Add(dbEntry);
-                    dbContext.SaveChanges();
+            var newOption = new UserOption { Value = value };
+            _options.Add(newOption);
 
-                    var logInf = new ActionOnLog(OLLDelegates.LogInformation);
-                    logInf($"Adding option {value} to User Option List named {Name}!");
-                }
-            }
-            catch (Exception e)
-            {
-                var logExc = new ActionOnLog(OLLDelegates.LogError);
-                logExc(e.Message);
-            }
+            dbContext.UserOptions.Add(newOption.ToDbEntry(Id));
+            dbContext.SaveChanges();
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Adding option {value} to User Option List named '{Name}'!");
         }
     }
 }

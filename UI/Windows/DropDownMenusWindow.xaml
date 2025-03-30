@@ -1,0 +1,43 @@
+﻿<Window x:Class="UI.DropDownMenusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI.Components"
+        mc:Ignorable="d"
+        Title="Option Manager" Height="700" Width="1300">
+    <Grid>
+        <StackPanel Orientation="Horizontal" Margin="20,10,20,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Height="Auto">
+            <local:SystemOptionsDropDownMenu
+                ListName="{Binding EmploymentTypeOptions.Name}"
+                Options ="{Binding EmploymentTypeOptions.Options}"
+                SelectedItem="{Binding EmploymentTypeOptions.SelectedOption}"
+                Margin="10,0,10,0"/>
+
+            <local:UserOptionsDropDownMenu
+                ListName="{Binding Roles.Name}"
+                Options="{Binding Roles.Options}"
+                SelectedItem="{Binding Roles.SelectedOption}"
+                AddOptionCommand="{Binding Roles.AddOptionCommand}"
+                NewOptionName="{Binding Roles.NewOptionName}"
+                Margin="10,0,10,0"/>
+
+            <local:UserOptionsDropDownMenu
+                ListName="{Binding ColorsList.Name}"
+                Options="{Binding ColorsList.Options}"
+                SelectedItem="{Binding ColorsList.SelectedOption}"
+                AddOptionCommand="{Binding ColorsList.AddOptionCommand}"
+                NewOptionName="{Binding ColorsList.NewOptionName}"
+                Margin="10,0,10,0"/>
+
+            <local:UserOptionsDropDownMenu
+                ListName="{Binding WorkLocationOptions.Name}"
+                Options="{Binding WorkLocationOptions.Options}"
+                SelectedItem="{Binding WorkLocationOptions.SelectedOption}"
+                AddOptionCommand="{Binding WorkLocationOptions.AddOptionCommand}"
+                NewOptionName="{Binding WorkLocationOptions.NewOptionName}"
+                Margin="10,0,10,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
