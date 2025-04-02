@@ -1,8 +1,10 @@
-﻿using Service.Model.OptionList;
+﻿using Service.Exceptions;
+using Service.Model.OptionList;
 using Service.Others.Identifiers.Model;
 using Service.Others.OptionListLoggerDelegates;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using UI.Others.Commands;
 using UI.ViewModel.Option;
@@ -58,10 +60,17 @@ namespace UI.ViewModel.OptionList
         {
             try
             {
-                _mixedOptionList.AddUserMixedOptionToList(NewOptionName);
-                _options.Add(new OptionViewModel(NewOptionName));
+                _mixedOptionList.AddUserMixedOptionToList(NewOptionName.Trim());
+                _options.Add(new OptionViewModel(NewOptionName.Trim()));
                 NewOptionName = string.Empty;
                 OnPropertyChanged(nameof(Options));
+            }
+            catch (OptionAlreadyExistsException e)
+            {
+                NewOptionName = null;
+                MessageBox.Show(e.Message);
+                var logExc = new ActionOnLog(OLLDelegates.LogError);
+                logExc(e.Message);
             }
             catch (Exception e)
             {
