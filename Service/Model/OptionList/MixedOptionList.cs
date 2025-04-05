@@ -11,8 +11,6 @@ namespace Service.Model.OptionList
 {
     public class MixedOptionList<T> : BaseOptionList<MixedOption<T>> where T : SystemId<T>
     {
-        public int Id { get; set; }
-
         public MixedOptionList(string name, string? description) : base(name)
         {
             using var dbContext = DatabaseContextFactory.Create();
@@ -35,7 +33,8 @@ namespace Service.Model.OptionList
                 {
                     Name = Name,
                     Description = Description,
-                    SystemIdType = typeof(T).Name
+                    SystemIdType = typeof(T).Name,
+                    SelectedOption = null
                 };
 
                 dbContext.MixedOptionLists.Add(newDbEntry);
@@ -61,6 +60,7 @@ namespace Service.Model.OptionList
                 Id = dbEntry.Id;
                 Name = dbEntry.Name;
                 Description = dbEntry.Description;
+                SelectedOption = dbEntry.SelectedOption;
 
                 dbEntry.Options
                     .ToList()
@@ -90,13 +90,13 @@ namespace Service.Model.OptionList
 
         public void AddUserMixedOptionToList(string value)
         {
-            using var dbContext = DatabaseContextFactory.Create();
-
             if (string.IsNullOrEmpty(value))
                 throw new EmptyUserOptionException(Name);
 
             if (_options.Any(opt => opt.Value == value))
                 throw new OptionAlreadyExistsException(Name, value);
+
+            using var dbContext = DatabaseContextFactory.Create();
 
             var newOption = new MixedOption<T> { Value = value, SysId = null };
             _options.Add(newOption);
@@ -106,6 +106,32 @@ namespace Service.Model.OptionList
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
             logInf($"Adding option {value} to Mixed Option List named '{Name}'!");
+        }
+
+        public void UpdateSelectedOption(string selectedOption)
+        {
+            if (string.IsNullOrEmpty(selectedOption))
+                throw new EmptySelectedOptionException(Name);
+
+            using var dbContext = DatabaseContextFactory.Create();
+
+            var dbEntry = dbContext.MixedOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == Name) ?? throw new DBListNotFoundException(Name);
+
+            var matchingOption = dbEntry.Options.FirstOrDefault(opt => opt.Value == selectedOption)
+                ?? throw new OptionDoesNotExistException(selectedOption, Name);
+
+            string matchingOptionValue = matchingOption.Value;
+
+            dbEntry.SelectedOption = matchingOptionValue;
+
+            dbContext.SaveChanges();
+
+            SelectedOption = matchingOptionValue;
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Selected option updated to '{selectedOption}' in mixed list '{Name}'");
         }
 
         private void InitializeOptions()

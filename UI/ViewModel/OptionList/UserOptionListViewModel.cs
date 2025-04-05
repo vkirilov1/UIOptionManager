@@ -2,7 +2,6 @@
 using Service.Model.OptionList;
 using Service.Others.OptionListLoggerDelegates;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using UI.Others.Commands;
@@ -12,7 +11,7 @@ namespace UI.ViewModel.OptionList
 {
     public class UserOptionsListViewModel : BaseOptionListViewModel, INotifyPropertyChanged
     {
-        private readonly UserOptionList _userOptionList;
+        private readonly UserOptionList? _userOptionList;
 
         private string? _newOptionName;
 
@@ -27,7 +26,31 @@ namespace UI.ViewModel.OptionList
             }
         }
 
-        public ICommand AddOptionCommand { get; }
+        private OptionViewModel? _selectedOption;
+        public OptionViewModel SelectedOption
+        {
+            get => _selectedOption;
+            set
+            {
+                _selectedOption = value;
+                OnPropertyChanged();
+
+                if (_selectedOption != null)
+                {
+                    try
+                    {
+                        _userOptionList.UpdateSelectedOption(_selectedOption.Value);
+                    }
+                    catch (Exception e)
+                    {
+                        var logExc = new ActionOnLog(OLLDelegates.LogError);
+                        logExc(e.Message);
+                    }
+                }
+            }
+        }
+
+        public ICommand? AddOptionCommand { get; }
 
         public UserOptionsListViewModel(string name)
             : this(name, null)
@@ -41,8 +64,19 @@ namespace UI.ViewModel.OptionList
                 _userOptionList = new(name, description);
                 Description = description;
 
-                _userOptionList.Options.ToList().ForEach(opt =>
-                    _options.Add(new OptionViewModel(opt.Value)));
+                _userOptionList.Options.ToList().ForEach(option =>
+                {
+                    var vmOption = new OptionViewModel(option.Value);
+                    _options.Add(vmOption);
+
+                    if (!string.IsNullOrEmpty(_userOptionList.SelectedOption))
+                    {
+                        if (vmOption.Value == _userOptionList.SelectedOption)
+                        {
+                            _selectedOption = vmOption;
+                        }
+                    }
+                });
 
                 AddOptionCommand = new DelegateCommand<string>(
                     _ => AddOption(),
@@ -80,9 +114,5 @@ namespace UI.ViewModel.OptionList
         }
 
         private bool CanAddOption() => !string.IsNullOrWhiteSpace(NewOptionName);
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

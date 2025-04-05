@@ -16,7 +16,7 @@ namespace UI
 
         public UserOptionsListViewModel Roles { get; }
 
-        public UserOptionsListViewModel ColorsList { get; } 
+        public UserOptionsListViewModel ColorsList { get; }
 
         public DropDownMenusWindow()
         {
