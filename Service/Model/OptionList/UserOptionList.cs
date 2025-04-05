@@ -1,16 +1,14 @@
-﻿using Service.Model.Option;
-using Service.Exceptions;
-using Service.Others.OptionListLoggerDelegates;
+﻿using DataLayer.Model.OptionList;
 using Microsoft.EntityFrameworkCore;
-using DataLayer.Model.OptionList;
+using Service.Exceptions;
+using Service.Model.Option;
 using Service.Others.Factories;
+using Service.Others.OptionListLoggerDelegates;
 
 namespace Service.Model.OptionList
 {
     public class UserOptionList : BaseOptionList<UserOption>
     {
-        public int Id { get; set; }
-
         public UserOptionList(string name, string? description) : base(name)
         {
             using var dbContext = DatabaseContextFactory.Create();
@@ -32,7 +30,8 @@ namespace Service.Model.OptionList
                 var newDbEntry = new UserOptionListDBEntry()
                 {
                     Name = Name,
-                    Description = Description
+                    Description = Description,
+                    SelectedOption = null
                 };
 
                 dbContext.UserOptionLists.Add(newDbEntry);
@@ -45,6 +44,7 @@ namespace Service.Model.OptionList
                 Id = dbEntry.Id;
                 Name = dbEntry.Name;
                 Description = dbEntry.Description;
+                SelectedOption = dbEntry.SelectedOption;
 
                 dbEntry.Options
                     .ToList()
@@ -62,13 +62,13 @@ namespace Service.Model.OptionList
 
         public void AddUserDefinedOption(string value)
         {
-            using var dbContext = DatabaseContextFactory.Create();
-
             if (string.IsNullOrEmpty(value))
                 throw new EmptyUserOptionException(Name);
 
             if (_options.Any(opt => opt.Value == value))
                 throw new OptionAlreadyExistsException(Name, value);
+
+            using var dbContext = DatabaseContextFactory.Create();
 
             var newOption = new UserOption { Value = value };
             _options.Add(newOption);
@@ -78,6 +78,32 @@ namespace Service.Model.OptionList
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
             logInf($"Adding option {value} to User Option List named '{Name}'!");
+        }
+
+        public void UpdateSelectedOption(string selectedOption)
+        {
+            if (string.IsNullOrEmpty(selectedOption))
+                throw new EmptySelectedOptionException(Name);
+
+            using var dbContext = DatabaseContextFactory.Create();
+
+            var dbEntry = dbContext.UserOptionLists
+                .Include(l => l.Options)
+                .FirstOrDefault(l => l.Name == Name) ?? throw new DBListNotFoundException(Name);
+
+            var matchingOption = dbEntry.Options.FirstOrDefault(opt => opt.Value == selectedOption)
+                ?? throw new OptionDoesNotExistException(selectedOption, Name);
+
+            string matchingOptionValue = matchingOption.Value;
+
+            dbEntry.SelectedOption = matchingOptionValue;
+
+            dbContext.SaveChanges();
+
+            SelectedOption = matchingOptionValue;
+
+            var logInf = new ActionOnLog(OLLDelegates.LogInformation);
+            logInf($"Selected option updated to '{selectedOption}' in user list '{Name}'");
         }
     }
 }

@@ -20,4 +20,3 @@ namespace DataLayer.Model.Option
         public virtual MixedOptionListDBEntry? MixedOptionList { get; set; }
     }
 }
- 

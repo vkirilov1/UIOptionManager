@@ -8,13 +8,13 @@ namespace DataLayer.Model.Option
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id {  get; set; }
+        public int Id { get; set; }
 
         public required string Value { get; set; }
 
         public int UserOptionListDBEntryId { get; set; }
 
         [ForeignKey(nameof(UserOptionListDBEntryId))]
-        public virtual UserOptionListDBEntry? UserOptionList {  get; set; }
+        public virtual UserOptionListDBEntry? UserOptionList { get; set; }
     }
 }

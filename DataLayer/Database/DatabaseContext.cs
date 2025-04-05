@@ -6,10 +6,11 @@ namespace DataLayer.Database
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<MixedOptionListDBEntry> MixedOptionLists {  get; set; }
+        public DbSet<MixedOptionListDBEntry> MixedOptionLists { get; set; }
         public DbSet<MixedOptionDBEntry> MixedOptions { get; set; }
         public DbSet<UserOptionListDBEntry> UserOptionLists { get; set; }
         public DbSet<UserOptionDBEntry> UserOptions { get; set; }
+        public DbSet<SystemOptionListDBEntry> SystemOptionLists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,6 +28,7 @@ namespace DataLayer.Database
                 .Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<UserOptionListDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<UserOptionDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<SystemOptionListDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<MixedOptionListDBEntry>()
                 .HasMany(list => list.Options)

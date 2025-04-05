@@ -17,7 +17,7 @@ namespace Service.Others.Identifiers.Model
             return typeof(T)
                 .GetFields(BindingFlags.Public | BindingFlags.Static)
                 .Where(f => f.FieldType == typeof(T))
-                .Select(f => (T)f.GetValue(null)!); 
+                .Select(f => (T)f.GetValue(null)!);
         }
     }
 }
