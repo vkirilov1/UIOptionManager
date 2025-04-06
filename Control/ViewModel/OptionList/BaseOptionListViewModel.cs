@@ -1,11 +1,12 @@
 ﻿using Service.Exceptions;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using UI.ViewModel.Option;
+using Control.Others.Constants;
+using Control.ViewModel.Option;
 
-namespace UI.ViewModel
+namespace Control.ViewModel
 {
-    public class BaseOptionListViewModel : INotifyPropertyChanged
+    public abstract class BaseOptionListViewModel : INotifyPropertyChanged
     {
         public string Name { get; set; }
 
@@ -15,9 +16,9 @@ namespace UI.ViewModel
 
         public IReadOnlyList<OptionViewModel> Options => _options.AsReadOnly();
 
-        public BaseOptionListViewModel(string name)
+        internal BaseOptionListViewModel(OptionListIdentifier listIdentifier)
         {
-            Name = name ?? throw new EmptyListNameException(nameof(BaseOptionListViewModel));
+            Name = listIdentifier.ToString() ?? throw new EmptyListNameException(nameof(BaseOptionListViewModel));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

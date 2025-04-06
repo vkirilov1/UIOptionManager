@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace UI
+namespace Control
 {
     /// <summary>
     /// Interaction logic for App.xaml

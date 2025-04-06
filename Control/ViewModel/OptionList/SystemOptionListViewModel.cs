@@ -1,11 +1,12 @@
 ﻿using Service.Model.OptionList;
 using Service.Others.Identifiers.Model;
 using Service.Others.OptionListLoggerDelegates;
-using UI.ViewModel.Option;
+using Control.Others.Constants;
+using Control.ViewModel.Option;
 
-namespace UI.ViewModel.OptionList
+namespace Control.ViewModel.OptionList
 {
-    public class SystemOptionListViewModel<T> : BaseOptionListViewModel where T : SystemId<T>
+    internal class SystemOptionListViewModel<T> : BaseOptionListViewModel where T : SystemId<T>
     {
         private readonly SystemOptionList<T>? _systemOptionList;
 
@@ -33,28 +34,20 @@ namespace UI.ViewModel.OptionList
             }
         }
 
-        public SystemOptionListViewModel(string name)
-            : this(name, null)
-        {
-        }
-
-        public SystemOptionListViewModel(string name, string? description) : base(name)
+        internal SystemOptionListViewModel(OptionListIdentifier listIdentifier, string? description) : base(listIdentifier)
         {
             try
             {
-                _systemOptionList = new(name, description);
+                _systemOptionList = new(listIdentifier.ToString(), description);
 
                 _systemOptionList.Options.ToList().ForEach(option =>
                 {
                     var vmOption = new OptionViewModel(option.Value);
                     _options.Add(vmOption);
 
-                    if (!string.IsNullOrEmpty(_systemOptionList.SelectedOption))
+                    if (!string.IsNullOrEmpty(_systemOptionList.SelectedOption) && vmOption.Value == _systemOptionList.SelectedOption)
                     {
-                        if (vmOption.Value == _systemOptionList.SelectedOption)
-                        {
-                            _selectedOption = vmOption;
-                        }
+                        _selectedOption = vmOption;
                     }
                 });
             }

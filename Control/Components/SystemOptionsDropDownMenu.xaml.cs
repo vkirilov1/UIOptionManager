@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UI.Components
+namespace Control.Components
 {
     public partial class SystemOptionsDropDownMenu : UserControl
     {

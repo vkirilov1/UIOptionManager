@@ -1,0 +1,47 @@
+﻿<Window x:Class="Control.DropDownMenusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:selectors="clr-namespace:Control.Others.Templates;assembly=Control"
+        xmlns:local="clr-namespace:Control.Components;assembly=Control"
+        mc:Ignorable="d"
+        Title="Option Manager" Height="700" Width="1300">
+
+    <Window.Resources>
+        <selectors:OptionListTemplateSelector x:Key="OptionListSelector">
+            <selectors:OptionListTemplateSelector.SystemOptionListTemplate>
+                <DataTemplate>
+                    <local:SystemOptionsDropDownMenu
+                        ListName="{Binding Name}"
+                        Options="{Binding Options}"
+                        SelectedItem="{Binding SelectedOption}"
+                        Margin="10,0,10,0" />
+                </DataTemplate>
+            </selectors:OptionListTemplateSelector.SystemOptionListTemplate>
+
+            <selectors:OptionListTemplateSelector.UserAndMixedOptionListTemplate>
+                <DataTemplate>
+                    <local:UserOptionsDropDownMenu
+                        ListName="{Binding Name}"
+                        Options="{Binding Options}"
+                        SelectedItem="{Binding SelectedOption}"
+                        AddOptionCommand="{Binding AddOptionCommand}"
+                        NewOptionName="{Binding NewOptionName}"
+                        Margin="10,0,10,0" />
+                </DataTemplate>
+            </selectors:OptionListTemplateSelector.UserAndMixedOptionListTemplate>
+        </selectors:OptionListTemplateSelector>
+    </Window.Resources>
+    
+    <ItemsControl ItemsSource="{Binding OptionLists}"
+                  ItemTemplateSelector="{StaticResource OptionListSelector}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal" Margin="20,10,20,0" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                    Height="Auto" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+    
+</Window>

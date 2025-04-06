@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace UI.Components
+namespace Control.Components
 {
     public partial class UserOptionsDropDownMenu : UserControl
     {
