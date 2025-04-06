@@ -1,4 +1,4 @@
-﻿namespace UI.ViewModel.Option
+﻿namespace Control.ViewModel.Option
 {
     public class OptionViewModel
     {

@@ -5,12 +5,13 @@ using Service.Others.OptionListLoggerDelegates;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using UI.Others.Commands;
-using UI.ViewModel.Option;
+using Control.Others.Commands;
+using Control.Others.Constants;
+using Control.ViewModel.Option;
 
-namespace UI.ViewModel.OptionList
+namespace Control.ViewModel.OptionList
 {
-    public class MixedOptionListViewModel<T> : BaseOptionListViewModel, INotifyPropertyChanged where T : SystemId<T>
+    internal class MixedOptionListViewModel<T> : BaseOptionListViewModel, INotifyPropertyChanged where T : SystemId<T>
     {
         private readonly MixedOptionList<T>? _mixedOptionList;
 
@@ -52,16 +53,11 @@ namespace UI.ViewModel.OptionList
 
         public ICommand? AddOptionCommand { get; }
 
-        public MixedOptionListViewModel(string name)
-            : this(name, null)
-        {
-        }
-
-        public MixedOptionListViewModel(string name, string? description) : base(name)
+        internal MixedOptionListViewModel(OptionListIdentifier listIdentifier, string? description) : base(listIdentifier)
         {
             try
             {
-                _mixedOptionList = new(name, description);
+                _mixedOptionList = new(listIdentifier.ToString(), description);
                 Description = description;
 
                 _mixedOptionList.Options.ToList().ForEach(option =>
@@ -69,12 +65,9 @@ namespace UI.ViewModel.OptionList
                     var vmOption = new OptionViewModel(option.Value);
                     _options.Add(vmOption);
 
-                    if (!string.IsNullOrEmpty(_mixedOptionList.SelectedOption))
+                    if (!string.IsNullOrEmpty(_mixedOptionList.SelectedOption) && vmOption.Value == _mixedOptionList.SelectedOption)
                     {
-                        if (vmOption.Value == _mixedOptionList.SelectedOption)
-                        {
-                            _selectedOption = vmOption;
-                        }
+                        _selectedOption = vmOption;
                     }
                 });
 

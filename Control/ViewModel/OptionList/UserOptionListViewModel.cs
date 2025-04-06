@@ -4,12 +4,13 @@ using Service.Others.OptionListLoggerDelegates;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using UI.Others.Commands;
-using UI.ViewModel.Option;
+using Control.Others.Commands;
+using Control.Others.Constants;
+using Control.ViewModel.Option;
 
-namespace UI.ViewModel.OptionList
+namespace Control.ViewModel.OptionList
 {
-    public class UserOptionsListViewModel : BaseOptionListViewModel, INotifyPropertyChanged
+    internal class UserOptionsListViewModel : BaseOptionListViewModel, INotifyPropertyChanged
     {
         private readonly UserOptionList? _userOptionList;
 
@@ -52,16 +53,11 @@ namespace UI.ViewModel.OptionList
 
         public ICommand? AddOptionCommand { get; }
 
-        public UserOptionsListViewModel(string name)
-            : this(name, null)
-        {
-        }
-
-        public UserOptionsListViewModel(string name, string? description) : base(name)
+        internal UserOptionsListViewModel(OptionListIdentifier listIdentifier, string? description) : base(listIdentifier)
         {
             try
             {
-                _userOptionList = new(name, description);
+                _userOptionList = new(listIdentifier.ToString(), description);
                 Description = description;
 
                 _userOptionList.Options.ToList().ForEach(option =>
@@ -69,12 +65,9 @@ namespace UI.ViewModel.OptionList
                     var vmOption = new OptionViewModel(option.Value);
                     _options.Add(vmOption);
 
-                    if (!string.IsNullOrEmpty(_userOptionList.SelectedOption))
+                    if (!string.IsNullOrEmpty(_userOptionList.SelectedOption) && vmOption.Value == _userOptionList.SelectedOption)
                     {
-                        if (vmOption.Value == _userOptionList.SelectedOption)
-                        {
-                            _selectedOption = vmOption;
-                        }
+                        _selectedOption = vmOption;
                     }
                 });
 

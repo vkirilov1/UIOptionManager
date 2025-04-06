@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace UI.Others.Commands
+namespace Control.Others.Commands
 {
     public class DelegateCommand<T> : ICommand
     {
