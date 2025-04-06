@@ -26,7 +26,7 @@
                 </StackPanel>
                 <ComboBox
                     ItemsSource="{Binding Options, ElementName=UserOptionsListDropDownMenu}"
-                    SelectedItem="{Binding SelectedItem, ElementName=UserOptionsListDropDownMenu, Mode=TwoWay}"
+                    SelectedItem="{Binding SelectedItem, ElementName=UserOptionsListDropDownMenu}"
                     DisplayMemberPath="Value"
                     IsEditable="False"
                     Width="200"/>
