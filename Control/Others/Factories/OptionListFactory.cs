@@ -1,76 +1,48 @@
-﻿using Service.Exceptions;
-using Service.Others.Identifiers.Constants;
-using Service.Others.Identifiers.Model;
-using Service.Others.OptionListLoggerDelegates;
-using Control.Others.Constants;
+﻿using Control.Others.Constants;
 using Control.ViewModel;
 using Control.ViewModel.OptionList;
+using Service.Exceptions;
+using Service.Others.Identifiers.Model;
 
 namespace Control.Others.Factories
 {
     public static class OptionListFactory
     {
-        private static readonly Dictionary<OptionListIdentifier, Func<BaseOptionListViewModel>> _lists = [];
         private static readonly List<OptionListIdentifier> _addedLists = [];
 
-        static OptionListFactory()
+        public static BaseOptionListViewModel CreateSystemOptionList<T>(OptionListIdentifier id, string? description = null)
+            where T : SystemId<T>
         {
-            try
+            if (!_addedLists.Contains(id))
             {
-                RegisterSystem<SystemIdConstants.EmploymentType>(OptionListIdentifier.EmploymentType);
-                RegisterUser(OptionListIdentifier.Roles, "Shows different roles the user can input");
-                RegisterUser(OptionListIdentifier.Hobbies);
-                RegisterMixed<SystemIdConstants.WorkLocation>(OptionListIdentifier.WorkLocations);
-            }
-            catch(Exception e)
-            {
-                var logExc = new ActionOnLog(OLLDelegates.LogError);
-                logExc(e.Message);
-            }
-        }
-
-        private static void RegisterUser(OptionListIdentifier id, string? description = null)
-        {
-            EnsureUnique(id);
-            _lists[id] = () => new UserOptionsListViewModel(id, description);
-        }
-
-        private static void RegisterSystem<TIdentifier>(OptionListIdentifier id, string? description = null) where TIdentifier : SystemId<TIdentifier>
-        {
-            EnsureUnique(id);
-            _lists[id] = () => new SystemOptionListViewModel<TIdentifier>(id, description);
-        }
-
-        private static void RegisterMixed<TIdentifier>(OptionListIdentifier id, string? description = null) where TIdentifier : SystemId<TIdentifier>
-        {
-            EnsureUnique(id);
-            _lists[id] = () => new MixedOptionListViewModel<TIdentifier>(id, description);
-        }
-
-        private static void EnsureUnique(OptionListIdentifier id)
-        {
-            if (_lists.ContainsKey(id))
-            {
-                throw new ListIdentifierAlreadyRegisteredException(id);
-            }
-        }
-
-        public static BaseOptionListViewModel Create(OptionListIdentifier identifier)
-        {
-            if (_lists.TryGetValue(identifier, out var list))
-            {
-                if (!_addedLists.Contains(identifier))
-                {
-                    _addedLists.Add(identifier);
-                    return list();
-                }
-                else
-                {
-                    throw new ListAlreadyExistsException(identifier);
-                }
+                _addedLists.Add(id);
+                return new SystemOptionListViewModel<T>(id, description);
             }
 
-            throw new ListIdentifierNotFoundException(identifier);
+            throw new ListAlreadyExistsException(id);
+        }
+
+        public static BaseOptionListViewModel CreateMixedOptionList<T>(OptionListIdentifier id, string? description = null)
+            where T : SystemId<T>
+        {
+            if (!_addedLists.Contains(id))
+            {
+                _addedLists.Add(id);
+                return new MixedOptionListViewModel<T>(id, description);
+            }
+
+            throw new ListAlreadyExistsException(id);
+        }
+
+        public static BaseOptionListViewModel CreateUserOptionList(OptionListIdentifier id, string? description = null)
+        {
+            if (!_addedLists.Contains(id))
+            {
+                _addedLists.Add(id);
+                return new UserOptionsListViewModel(id, description);
+            }
+
+            throw new ListAlreadyExistsException(id);
         }
     }
 }

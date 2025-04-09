@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using Control.ViewModel.OptionList;
+using System.Windows;
 using System.Windows.Controls;
-using Control.ViewModel.OptionList;
 
 namespace Control.Others.Templates
 {
@@ -15,7 +15,7 @@ namespace Control.Others.Templates
 
             var itemType = item.GetType();
 
-            if(itemType.IsGenericType)
+            if (itemType.IsGenericType)
             {
                 var genericList = itemType.GetGenericTypeDefinition();
 
@@ -30,7 +30,7 @@ namespace Control.Others.Templates
                 }
             }
 
-            if(item is UserOptionsListViewModel)
+            if (item is UserOptionsListViewModel)
             {
                 return UserAndMixedOptionListTemplate;
             }

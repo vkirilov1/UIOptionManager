@@ -1,6 +1,7 @@
 ﻿using Control.Others.Constants;
 using Control.Others.Factories;
 using Control.ViewModel;
+using Service.Others.Identifiers.Constants;
 using Service.Others.OptionListLoggerDelegates;
 using System.Windows;
 
@@ -20,10 +21,10 @@ namespace Control
 
             try
             {
-                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.EmploymentType));
-                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.Roles));
-                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.Hobbies));
-                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.WorkLocations));
+                OptionLists.Add(OptionListFactory.CreateSystemOptionList<SystemIdConstants.EmploymentType>(OptionListIdentifier.EmploymentType));
+                OptionLists.Add(OptionListFactory.CreateUserOptionList(OptionListIdentifier.Roles));
+                OptionLists.Add(OptionListFactory.CreateUserOptionList(OptionListIdentifier.Hobbies));
+                OptionLists.Add(OptionListFactory.CreateMixedOptionList<SystemIdConstants.WorkLocation>(OptionListIdentifier.WorkLocations));
             }
             catch (Exception e)
             {
