@@ -62,7 +62,7 @@ namespace Control.ViewModel.OptionList
 
                 _mixedOptionList.Options.ToList().ForEach(option =>
                 {
-                    var vmOption = new OptionViewModel(option.Value);
+                    var vmOption = new OptionViewModel(option.Value, listIdentifier);
                     _options.Add(vmOption);
 
                     if (!string.IsNullOrEmpty(_mixedOptionList.SelectedOption) && vmOption.Value == _mixedOptionList.SelectedOption)
@@ -88,7 +88,7 @@ namespace Control.ViewModel.OptionList
             try
             {
                 _mixedOptionList.AddUserMixedOptionToList(NewOptionName.Trim());
-                _options.Add(new OptionViewModel(NewOptionName.Trim()));
+                _options.Add(new OptionViewModel(NewOptionName.Trim(), ListIdentifier));
                 NewOptionName = string.Empty;
                 OnPropertyChanged(nameof(Options));
             }

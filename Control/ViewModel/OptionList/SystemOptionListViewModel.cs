@@ -42,7 +42,7 @@ namespace Control.ViewModel.OptionList
 
                 _systemOptionList.Options.ToList().ForEach(option =>
                 {
-                    var vmOption = new OptionViewModel(option.Value);
+                    var vmOption = new OptionViewModel(option.Value, listIdentifier);
                     _options.Add(vmOption);
 
                     if (!string.IsNullOrEmpty(_systemOptionList.SelectedOption) && vmOption.Value == _systemOptionList.SelectedOption)

@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="Option Manager" Height="700" Width="1300">
 
-    <panel:OptionListPanel
-        OptionLists="{Binding OptionLists}"/>
-    
+    <Grid>
+        <panel:OptionListPanel
+            OptionLists="{Binding OptionLists}"/>
+    </Grid>
+
 </Window>

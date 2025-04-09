@@ -62,7 +62,7 @@ namespace Control.ViewModel.OptionList
 
                 _userOptionList.Options.ToList().ForEach(option =>
                 {
-                    var vmOption = new OptionViewModel(option.Value);
+                    var vmOption = new OptionViewModel(option.Value, listIdentifier);
                     _options.Add(vmOption);
 
                     if (!string.IsNullOrEmpty(_userOptionList.SelectedOption) && vmOption.Value == _userOptionList.SelectedOption)
@@ -88,7 +88,7 @@ namespace Control.ViewModel.OptionList
             try
             {
                 _userOptionList.AddUserDefinedOption(NewOptionName.Trim());
-                _options.Add(new OptionViewModel(NewOptionName.Trim()));
+                _options.Add(new OptionViewModel(NewOptionName.Trim(), ListIdentifier));
                 NewOptionName = string.Empty;
                 OnPropertyChanged(nameof(Options));
             }
