@@ -17,6 +17,7 @@
                     ListName="{Binding Name}"
                     Options="{Binding Options}"
                     SelectedItem="{Binding SelectedOption}"
+                    OptionDescription="{Binding OptionDescription}"
                     Margin="10,0,10,0" />
                 </DataTemplate>
             </selectors:OptionListTemplateSelector.SystemOptionListTemplate>

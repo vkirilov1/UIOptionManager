@@ -3,12 +3,24 @@ using Service.Others.Identifiers.Model;
 using Service.Others.OptionListLoggerDelegates;
 using Control.Others.Constants;
 using Control.ViewModel.Option;
+using Service.Others.Identifiers.Constants;
 
 namespace Control.ViewModel.OptionList
 {
     internal class SystemOptionListViewModel<T> : BaseOptionListViewModel where T : SystemId<T>
     {
         private readonly SystemOptionList<T>? _systemOptionList;
+
+        private string? _optionDescription;
+        public string? OptionDescription
+        {
+            get => _optionDescription;
+            set
+            {
+                _optionDescription = value;
+                OnPropertyChanged();
+            }
+        }
 
         private OptionViewModel? _selectedOption;
         public OptionViewModel? SelectedOption
@@ -24,6 +36,12 @@ namespace Control.ViewModel.OptionList
                     try
                     {
                         _systemOptionList.UpdateSelectedOption(_selectedOption.Value);
+
+                        if (typeof(T) == typeof(SystemIdConstants.EmploymentType))
+                        {
+                            var selectedItem = SystemIdConstants.EmploymentType.GetAllValues().FirstOrDefault(v => v.Name == _selectedOption.Value);
+                            DisplayEmploymentTypeHours(selectedItem);
+                        }
                     }
                     catch (Exception e)
                     {
@@ -47,7 +65,7 @@ namespace Control.ViewModel.OptionList
 
                     if (!string.IsNullOrEmpty(_systemOptionList.SelectedOption) && vmOption.Value == _systemOptionList.SelectedOption)
                     {
-                        _selectedOption = vmOption;
+                        SelectedOption = vmOption;
                     }
                 });
             }
@@ -58,6 +76,21 @@ namespace Control.ViewModel.OptionList
             }
 
             Description = description;
+        }
+
+        private void DisplayEmploymentTypeHours(SystemIdConstants.EmploymentType? selectedItem)
+        {
+            if (selectedItem != null)
+            {
+                OptionDescription = selectedItem switch
+                {
+                    var _ when selectedItem.Equals(SystemIdConstants.EmploymentType.FullTime) => "Full-time employees work 40 hours per week.",
+                    var _ when selectedItem.Equals(SystemIdConstants.EmploymentType.PartTime) => "Part-time employees work around 20 hours per week.",
+                    var _ when selectedItem.Equals(SystemIdConstants.EmploymentType.Internship) => "Internships are typically 10–20 hours per week.",
+                    _ => "Select an option to see work hours for each employment type.",
+                };
+            }
+
         }
     }
 }

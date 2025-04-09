@@ -36,6 +36,13 @@ namespace Control.Components
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata(null));
 
+        public static readonly DependencyProperty OptionDescriptionProperty =
+            DependencyProperty.Register(
+                "OptionDescription",
+                typeof(string),
+                typeof(SystemOptionsDropDownMenu),
+                new PropertyMetadata(null));
+
         public IEnumerable Options
         {
             get { return (IEnumerable)GetValue(OptionsProperty); }
@@ -58,6 +65,12 @@ namespace Control.Components
         {
             get { return (string)GetValue(ListNameProperty); }
             set { SetValue(ListNameProperty, value); }
+        }
+
+        public string OptionDescription
+        {
+            get { return (string)GetValue(OptionDescriptionProperty); }
+            set { SetValue(OptionDescriptionProperty, value); }
         }
 
         public SystemOptionsDropDownMenu()

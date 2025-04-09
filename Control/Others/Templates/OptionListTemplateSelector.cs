@@ -6,8 +6,8 @@ namespace Control.Others.Templates
 {
     public class OptionListTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate SystemOptionListTemplate { get; set; }
-        public DataTemplate UserAndMixedOptionListTemplate { get; set; }
+        public required DataTemplate SystemOptionListTemplate { get; set; }
+        public required DataTemplate UserAndMixedOptionListTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
