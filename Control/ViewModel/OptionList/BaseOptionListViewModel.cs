@@ -8,6 +8,8 @@ namespace Control.ViewModel
 {
     public abstract class BaseOptionListViewModel : INotifyPropertyChanged
     {
+        public OptionListIdentifier ListIdentifier { get; }
+
         public string Name { get; set; }
 
         public string? Description { get; set; }
@@ -19,6 +21,7 @@ namespace Control.ViewModel
         internal BaseOptionListViewModel(OptionListIdentifier listIdentifier)
         {
             Name = listIdentifier.ToString() ?? throw new EmptyListNameException(nameof(BaseOptionListViewModel));
+            ListIdentifier = listIdentifier;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
