@@ -22,7 +22,7 @@ namespace Control
             {
                 OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.EmploymentType));
                 OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.Roles));
-                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.Colors));
+                OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.Hobbies));
                 OptionLists.Add(OptionListFactory.Create(OptionListIdentifier.WorkLocations));
             }
             catch (Exception e)
