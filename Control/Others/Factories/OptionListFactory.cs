@@ -19,7 +19,7 @@ namespace Control.Others.Factories
             {
                 RegisterSystem<SystemIdConstants.EmploymentType>(OptionListIdentifier.EmploymentType);
                 RegisterUser(OptionListIdentifier.Roles, "Shows different roles the user can input");
-                RegisterUser(OptionListIdentifier.Colors);
+                RegisterUser(OptionListIdentifier.Hobbies);
                 RegisterMixed<SystemIdConstants.WorkLocation>(OptionListIdentifier.WorkLocations);
             }
             catch(Exception e)

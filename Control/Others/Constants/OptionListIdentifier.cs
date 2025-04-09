@@ -4,8 +4,7 @@
     {
         EmploymentType,
         Roles,
-        Colors,
-        WorkLocations,
-        NonAddedList
+        Hobbies,
+        WorkLocations
     }
 }
