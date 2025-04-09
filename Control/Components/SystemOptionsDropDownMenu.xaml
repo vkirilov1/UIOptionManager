@@ -8,16 +8,27 @@
              Name="SystemOptionsListDropDownMenu"
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-        <TextBlock Text="{Binding ListName, ElementName=SystemOptionsListDropDownMenu}" 
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ListName, ElementName=SystemOptionsListDropDownMenu}" 
                    VerticalAlignment="Center"
-                   Margin="0,0,10,0"/>
+                   Margin="0,0,10,0"
+                   TextWrapping="Wrap"
+                   MaxWidth="300"/>
 
-        <ComboBox ItemsSource="{Binding Options, ElementName=SystemOptionsListDropDownMenu}"
+            <ComboBox ItemsSource="{Binding Options, ElementName=SystemOptionsListDropDownMenu}"
                   SelectedItem="{Binding SelectedItem, ElementName=SystemOptionsListDropDownMenu}"
                   DisplayMemberPath="{Binding DisplayMemberPath, ElementName=SystemOptionsListDropDownMenu}"
                   IsEditable="False"
                   IsReadOnly="True"
                   Width="200"/>
+        </StackPanel>
+
+        <TextBlock Text="{Binding OptionDescription, ElementName=SystemOptionsListDropDownMenu, TargetNullValue='Select an option to see work hours for each employment type.'}"
+           FontSize="14"
+           Foreground="Gray"
+           Margin="0,5,10,0"
+           TextWrapping="Wrap"
+           MaxWidth="300"/>
     </StackPanel>
 </UserControl>

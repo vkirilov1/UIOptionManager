@@ -67,7 +67,7 @@ namespace Control.ViewModel.OptionList
 
                     if (!string.IsNullOrEmpty(_userOptionList.SelectedOption) && vmOption.Value == _userOptionList.SelectedOption)
                     {
-                        _selectedOption = vmOption;
+                        SelectedOption = vmOption;
                     }
                 });
 

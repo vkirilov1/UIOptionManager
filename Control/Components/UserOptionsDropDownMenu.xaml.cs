@@ -23,6 +23,13 @@ namespace Control.Components
                     null,
                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
+        public static readonly DependencyProperty DisplayMemberPathProperty =
+            DependencyProperty.Register(
+                "DisplayMemberPath",
+                typeof(string),
+                typeof(UserOptionsDropDownMenu),
+                new PropertyMetadata("Value"));
+
         public static readonly DependencyProperty AddOptionCommandProperty =
             DependencyProperty.Register(
                 "AddOptionCommand",
@@ -55,6 +62,12 @@ namespace Control.Components
         {
             get => GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
+        }
+
+        public string DisplayMemberPath
+        {
+            get { return (string)GetValue(DisplayMemberPathProperty); }
+            set { SetValue(DisplayMemberPathProperty, value); }
         }
 
         public ICommand AddOptionCommand
