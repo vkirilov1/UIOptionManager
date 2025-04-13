@@ -1,5 +1,6 @@
 ﻿using DataLayer.Model.Option;
 using DataLayer.Model.OptionList;
+using DataLayer.Model.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Database
@@ -11,6 +12,7 @@ namespace DataLayer.Database
         public DbSet<UserOptionListDBEntry> UserOptionLists { get; set; }
         public DbSet<UserOptionDBEntry> UserOptions { get; set; }
         public DbSet<SystemOptionListDBEntry> SystemOptionLists { get; set; }
+        public DbSet<UserDBEntry> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -29,6 +31,7 @@ namespace DataLayer.Database
             modelBuilder.Entity<UserOptionListDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<UserOptionDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<SystemOptionListDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<UserDBEntry>().Property(e => e.Id).ValueGeneratedOnAdd();
 
             modelBuilder.Entity<MixedOptionListDBEntry>()
                 .HasMany(list => list.Options)
@@ -41,6 +44,31 @@ namespace DataLayer.Database
                 .WithOne(option => option.UserOptionList)
                 .HasForeignKey(option => option.UserOptionListDBEntryId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<MixedOptionListDBEntry>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserDBEntryId);
+
+            modelBuilder.Entity<MixedOptionDBEntry>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserDBEntryId);
+
+            modelBuilder.Entity<UserOptionListDBEntry>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserDBEntryId);
+
+            modelBuilder.Entity<UserOptionDBEntry>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserDBEntryId);
+
+            modelBuilder.Entity<SystemOptionListDBEntry>()
+                .HasOne(l => l.User)
+                .WithMany()
+                .HasForeignKey(l => l.UserDBEntryId);
         }
     }
 }

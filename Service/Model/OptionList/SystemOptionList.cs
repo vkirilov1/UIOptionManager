@@ -9,12 +9,12 @@ namespace Service.Model.OptionList
 {
     public class SystemOptionList<T> : BaseOptionList<SystemOption<T>> where T : SystemId<T>
     {
-        public SystemOptionList(string name, string? description) : base(name)
+        public SystemOptionList(string name, string? description, int userId) : base(name, userId)
         {
             using var dbContext = DatabaseContextFactory.Create();
 
             var dbEntry = dbContext.SystemOptionLists
-                .FirstOrDefault(l => l.Name == Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId);
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
 
@@ -29,7 +29,8 @@ namespace Service.Model.OptionList
                 {
                     Name = Name,
                     Description = Description,
-                    SelectedOption = null
+                    SelectedOption = null,
+                    UserDBEntryId = UserId
                 };
 
                 dbContext.SystemOptionLists.Add(newDbEntry);
@@ -48,6 +49,7 @@ namespace Service.Model.OptionList
                 Name = dbEntry.Name;
                 Description = dbEntry.Description;
                 SelectedOption = dbEntry.SelectedOption;
+                UserId = dbEntry.UserDBEntryId;
             }
 
             InitializeOptions();
@@ -78,7 +80,8 @@ namespace Service.Model.OptionList
             using var dbContext = DatabaseContextFactory.Create();
 
             var dbEntry = dbContext.SystemOptionLists
-                .FirstOrDefault(l => l.Name == Name) ?? throw new DBListNotFoundException(Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId)
+                ?? throw new DBListNotFoundException(Name);
 
             var matchingOption = Options.FirstOrDefault(opt => opt.Value == selectedOption);
 

@@ -16,9 +16,12 @@ namespace Service.Model.OptionList
         protected readonly List<TOption> _options = [];
         public IReadOnlyList<TOption> Options => _options.AsReadOnly();
 
-        public BaseOptionList(string name)
+        public int UserId { get; set; }
+
+        public BaseOptionList(string name, int userId)
         {
             Name = name ?? throw new EmptyListNameException(GetType().Name);
+            UserId = userId;
         }
     }
 }

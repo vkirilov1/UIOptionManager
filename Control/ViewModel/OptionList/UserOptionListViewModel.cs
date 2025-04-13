@@ -53,11 +53,11 @@ namespace Control.ViewModel.OptionList
 
         public ICommand? AddOptionCommand { get; }
 
-        internal UserOptionsListViewModel(OptionListIdentifier listIdentifier, string? description) : base(listIdentifier)
+        internal UserOptionsListViewModel(OptionListIdentifier listIdentifier, int userId, string? description=null) : base(listIdentifier)
         {
             try
             {
-                _userOptionList = new(listIdentifier.ToString(), description);
+                _userOptionList = new(listIdentifier.ToString(), description, userId);
                 Description = description;
 
                 _userOptionList.Options.ToList().ForEach(option =>
@@ -95,7 +95,7 @@ namespace Control.ViewModel.OptionList
             catch (OptionAlreadyExistsException e)
             {
                 NewOptionName = null;
-                MessageBox.Show(e.Message);
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 var logExc = new ActionOnLog(OLLDelegates.LogError);
                 logExc(e.Message);
             }

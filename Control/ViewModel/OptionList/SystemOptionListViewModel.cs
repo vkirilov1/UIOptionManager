@@ -52,11 +52,11 @@ namespace Control.ViewModel.OptionList
             }
         }
 
-        internal SystemOptionListViewModel(OptionListIdentifier listIdentifier, string? description) : base(listIdentifier)
+        internal SystemOptionListViewModel(OptionListIdentifier listIdentifier, int userId, string? description=null) : base(listIdentifier)
         {
             try
             {
-                _systemOptionList = new(listIdentifier.ToString(), description);
+                _systemOptionList = new(listIdentifier.ToString(), description, userId);
 
                 _systemOptionList.Options.ToList().ForEach(option =>
                 {

@@ -4,14 +4,17 @@ namespace Service.Model.Option
 {
     public class UserOption : BaseOption
     {
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
+
+        public int UserId { get; set; }
 
         public UserOptionDBEntry ToDbEntry(int userOptionListId)
         {
             return new UserOptionDBEntry
             {
                 Value = Value,
-                UserOptionListDBEntryId = userOptionListId
+                UserOptionListDBEntryId = userOptionListId,
+                UserDBEntryId = UserId
             };
         }
     }
