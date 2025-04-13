@@ -1,4 +1,5 @@
 ﻿using DataLayer.Model.OptionList;
+using DataLayer.Model.Users;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,6 +16,11 @@ namespace DataLayer.Model.Option
         public int UserOptionListDBEntryId { get; set; }
 
         [ForeignKey(nameof(UserOptionListDBEntryId))]
-        public virtual UserOptionListDBEntry? UserOptionList { get; set; }
+        public UserOptionListDBEntry? UserOptionList { get; set; }
+
+        public required int UserDBEntryId { get; set; }
+
+        [ForeignKey(nameof(UserDBEntryId))]
+        public UserDBEntry? User { get; set; }
     }
 }

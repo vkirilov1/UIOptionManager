@@ -3,20 +3,20 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Control.Components
+namespace Control.Components.OptionList
 {
     public partial class UserOptionsDropDownMenu : UserControl
     {
         public static readonly DependencyProperty OptionsProperty =
             DependencyProperty.Register(
-                "Options",
+                nameof(Options),
                 typeof(IEnumerable),
                 typeof(UserOptionsDropDownMenu),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
-                "SelectedItem",
+                nameof(SelectedItem),
                 typeof(object),
                 typeof(UserOptionsDropDownMenu),
                 new FrameworkPropertyMetadata(
@@ -25,20 +25,20 @@ namespace Control.Components
 
         public static readonly DependencyProperty DisplayMemberPathProperty =
             DependencyProperty.Register(
-                "DisplayMemberPath",
+                nameof(DisplayMemberPath),
                 typeof(string),
                 typeof(UserOptionsDropDownMenu),
                 new PropertyMetadata("Value"));
 
         public static readonly DependencyProperty AddOptionCommandProperty =
             DependencyProperty.Register(
-                "AddOptionCommand",
+                nameof(AddOptionCommand),
                 typeof(ICommand),
                 typeof(UserOptionsDropDownMenu));
 
         public static readonly DependencyProperty NewOptionNameProperty =
             DependencyProperty.Register(
-                "NewOptionName",
+                nameof(NewOptionName),
                 typeof(string),
                 typeof(UserOptionsDropDownMenu),
                 new FrameworkPropertyMetadata(
@@ -47,7 +47,7 @@ namespace Control.Components
 
         public static readonly DependencyProperty ListNameProperty =
             DependencyProperty.Register(
-                "ListName",
+                nameof(ListName),
                 typeof(string),
                 typeof(UserOptionsDropDownMenu),
                 new PropertyMetadata(null));

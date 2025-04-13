@@ -7,6 +7,7 @@ namespace Service.Model.Option
     {
         public int Id { get; set; }
         public virtual SystemId<T>? SysId { get; set; }
+        public int UserId { get; set; }
 
         public MixedOptionDBEntry ToDbEntry(int mixedOptionListId)
         {
@@ -14,7 +15,8 @@ namespace Service.Model.Option
             {
                 Value = Value,
                 SystemId = SysId?.Value,
-                MixedOptionListDBEntryId = mixedOptionListId
+                MixedOptionListDBEntryId = mixedOptionListId,
+                UserDBEntryId = UserId
             };
         }
     }

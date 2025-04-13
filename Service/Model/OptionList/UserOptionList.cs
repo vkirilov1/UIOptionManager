@@ -9,13 +9,13 @@ namespace Service.Model.OptionList
 {
     public class UserOptionList : BaseOptionList<UserOption>
     {
-        public UserOptionList(string name, string? description) : base(name)
+        public UserOptionList(string name, string? description, int userId) : base(name, userId)
         {
             using var dbContext = DatabaseContextFactory.Create();
 
             var dbEntry = dbContext.UserOptionLists
                 .Include(l => l.Options)
-                .FirstOrDefault(l => l.Name == Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId);
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
 
@@ -31,7 +31,8 @@ namespace Service.Model.OptionList
                 {
                     Name = Name,
                     Description = Description,
-                    SelectedOption = null
+                    SelectedOption = null,
+                    UserDBEntryId = UserId
                 };
 
                 dbContext.UserOptionLists.Add(newDbEntry);
@@ -52,7 +53,8 @@ namespace Service.Model.OptionList
                     {
                         _options.Add(new UserOption
                         {
-                            Value = option.Value
+                            Value = option.Value,
+                            UserId = UserId
                         });
                     });
 
@@ -70,7 +72,7 @@ namespace Service.Model.OptionList
 
             using var dbContext = DatabaseContextFactory.Create();
 
-            var newOption = new UserOption { Value = value };
+            var newOption = new UserOption { Value = value, UserId = UserId };
             _options.Add(newOption);
 
             dbContext.UserOptions.Add(newOption.ToDbEntry(Id));
@@ -89,7 +91,8 @@ namespace Service.Model.OptionList
 
             var dbEntry = dbContext.UserOptionLists
                 .Include(l => l.Options)
-                .FirstOrDefault(l => l.Name == Name) ?? throw new DBListNotFoundException(Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId)
+                ?? throw new DBListNotFoundException(Name);
 
             var matchingOption = dbEntry.Options.FirstOrDefault(opt => opt.Value == selectedOption)
                 ?? throw new OptionDoesNotExistException(selectedOption, Name);

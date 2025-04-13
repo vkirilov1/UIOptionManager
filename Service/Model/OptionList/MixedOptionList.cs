@@ -11,13 +11,13 @@ namespace Service.Model.OptionList
 {
     public class MixedOptionList<T> : BaseOptionList<MixedOption<T>> where T : SystemId<T>
     {
-        public MixedOptionList(string name, string? description) : base(name)
+        public MixedOptionList(string name, string? description, int userId) : base(name, userId)
         {
             using var dbContext = DatabaseContextFactory.Create();
 
             var dbEntry = dbContext.MixedOptionLists
                 .Include(l => l.Options)
-                .FirstOrDefault(l => l.Name == Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId);
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
 
@@ -26,6 +26,7 @@ namespace Service.Model.OptionList
                 if (string.IsNullOrWhiteSpace(Name))
                     throw new EmptyListNameException(GetType().Name);
 
+                UserId = userId;
                 Description = description;
                 InitializeOptions();
 
@@ -34,7 +35,8 @@ namespace Service.Model.OptionList
                     Name = Name,
                     Description = Description,
                     SystemIdType = typeof(T).Name,
-                    SelectedOption = null
+                    SelectedOption = null,
+                    UserDBEntryId = UserId
                 };
 
                 dbContext.MixedOptionLists.Add(newDbEntry);
@@ -48,7 +50,8 @@ namespace Service.Model.OptionList
                 {
                     Value = option.Value,
                     SystemId = option.SysId?.Value,
-                    MixedOptionListDBEntryId = newDbEntry.Id
+                    MixedOptionListDBEntryId = Id,
+                    UserDBEntryId = UserId
                 }));
 
                 dbContext.SaveChanges();
@@ -61,6 +64,7 @@ namespace Service.Model.OptionList
                 Name = dbEntry.Name;
                 Description = dbEntry.Description;
                 SelectedOption = dbEntry.SelectedOption;
+                UserId = dbEntry.UserDBEntryId;
 
                 dbEntry.Options
                     .ToList()
@@ -71,7 +75,8 @@ namespace Service.Model.OptionList
                             _options.Add(new MixedOption<T>
                             {
                                 SysId = SystemId<T>.FromDatabaseValue(option.SystemId.Value),
-                                Value = option.Value
+                                Value = option.Value,
+                                UserId = UserId
                             });
                         }
                         else
@@ -79,7 +84,8 @@ namespace Service.Model.OptionList
                             _options.Add(new MixedOption<T>
                             {
                                 SysId = null,
-                                Value = option.Value
+                                Value = option.Value,
+                                UserId = UserId
                             });
                         }
                     });
@@ -98,7 +104,7 @@ namespace Service.Model.OptionList
 
             using var dbContext = DatabaseContextFactory.Create();
 
-            var newOption = new MixedOption<T> { Value = value, SysId = null };
+            var newOption = new MixedOption<T> { Value = value, SysId = null, UserId = UserId };
             _options.Add(newOption);
 
             dbContext.MixedOptions.Add(newOption.ToDbEntry(Id));
@@ -117,7 +123,8 @@ namespace Service.Model.OptionList
 
             var dbEntry = dbContext.MixedOptionLists
                 .Include(l => l.Options)
-                .FirstOrDefault(l => l.Name == Name) ?? throw new DBListNotFoundException(Name);
+                .FirstOrDefault(l => l.Name == Name && l.UserDBEntryId == UserId)
+                ?? throw new DBListNotFoundException(Name);
 
             var matchingOption = dbEntry.Options.FirstOrDefault(opt => opt.Value == selectedOption)
                 ?? throw new OptionDoesNotExistException(selectedOption, Name);
@@ -143,7 +150,8 @@ namespace Service.Model.OptionList
                     _options.Add(new MixedOption<T>
                     {
                         SysId = sysId,
-                        Value = sysId.Name
+                        Value = sysId.Name,
+                        UserId = UserId
                     });
                 });
 

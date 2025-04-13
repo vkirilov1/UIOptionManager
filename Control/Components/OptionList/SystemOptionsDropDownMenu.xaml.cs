@@ -2,20 +2,20 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Control.Components
+namespace Control.Components.OptionList
 {
     public partial class SystemOptionsDropDownMenu : UserControl
     {
         public static readonly DependencyProperty OptionsProperty =
             DependencyProperty.Register(
-                "Options",
+                nameof(Options),
                 typeof(IEnumerable),
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
-                "SelectedItem",
+                nameof(SelectedItem),
                 typeof(object),
                 typeof(SystemOptionsDropDownMenu),
                 new FrameworkPropertyMetadata(
@@ -24,21 +24,21 @@ namespace Control.Components
 
         public static readonly DependencyProperty DisplayMemberPathProperty =
             DependencyProperty.Register(
-                "DisplayMemberPath",
+                nameof(DisplayMemberPath),
                 typeof(string),
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata("Value"));
 
         public static readonly DependencyProperty ListNameProperty =
             DependencyProperty.Register(
-                "ListName",
+                nameof(ListName),
                 typeof(string),
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata(null));
 
         public static readonly DependencyProperty OptionDescriptionProperty =
             DependencyProperty.Register(
-                "OptionDescription",
+                nameof(OptionDescription),
                 typeof(string),
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata(null));
