@@ -62,7 +62,7 @@ namespace Control.ViewModel.Users
         {
             try
             {
-                var user = UserFactory.RegisterUser(
+                UserFactory.RegisterUser(
                     Name.Trim(),
                     Username.Trim(),
                     Password.Trim(),

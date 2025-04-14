@@ -8,7 +8,7 @@ namespace Service.Model.Users
 {
     public static class UserFactory
     {
-        public static User RegisterUser(string name, string username, string password, string? email = null)
+        public static void RegisterUser(string name, string username, string password, string? email = null)
         {
             if (string.IsNullOrWhiteSpace(username))
                 throw new EmptyUsernameException();
@@ -23,6 +23,12 @@ namespace Service.Model.Users
 
             if (dbContext.Users.Any(u => u.Username == username))
                 throw new UsernameAlreadyExistsException(username);
+
+            if (email != null)
+            {
+                if (dbContext.Users.Any(u => u.Email == email))
+                    throw new EmailAlreadyExistsException(email);
+            }
 
             var hashedPassword = PasswordHasher.HashPassword(password);
 
@@ -39,14 +45,6 @@ namespace Service.Model.Users
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
             logInf($"Registered user {name} with username: {username}");
-                
-            return new User
-            {
-                Id = newDbEntry.Id,
-                Name = newDbEntry.Name,
-                Username = newDbEntry.Username,
-                Email = newDbEntry.Email
-            };
         }
 
         public static User LoginUser(string username, string password)
