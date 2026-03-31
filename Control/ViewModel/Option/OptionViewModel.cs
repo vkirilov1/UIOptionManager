@@ -1,17 +1,33 @@
 ﻿using Control.Others.Constants;
+using System.ComponentModel;
 
 namespace Control.ViewModel.Option
 {
-    public class OptionViewModel
+    public class OptionViewModel : INotifyPropertyChanged
     {
-        public string Value { get; set; } = string.Empty;
+        private string _value = string.Empty;
+
+        public string Value
+        {
+            get => _value;
+            set
+            {
+                _value = value;
+                OnPropertyChanged();
+            }
+        }
 
         public OptionListIdentifier Identifier { get; set; }
 
         public OptionViewModel(string value, OptionListIdentifier identifier)
         {
-            Value = value;
+            _value = value;
             Identifier = identifier;
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string? name = null)
+            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

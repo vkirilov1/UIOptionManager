@@ -16,13 +16,29 @@
                    Margin="0,0,10,0"/>
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <TextBox x:Name="NewOptionText" 
-                    Width="140" 
-                    Margin="0,0,5,0"
-                    Text="{Binding NewOptionName, UpdateSourceTrigger=PropertyChanged, ElementName=UserOptionsListDropDownMenu}"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBox Width="200" 
+                            Margin="0,0,0,5" 
+                            HorizontalAlignment="Left"
+                            Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged, ElementName=UserOptionsListDropDownMenu}"
+                            Tag="Search"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="NewOptionText" 
+                                Width="140" Margin="0,0,5,0"
+                                Text="{Binding NewOptionName, UpdateSourceTrigger=PropertyChanged, ElementName=UserOptionsListDropDownMenu}"/>
+                        </StackPanel>
+                    </StackPanel>
                     <Button Content="Add" 
-                    Width="55"
-                    Command="{Binding AddOptionCommand, ElementName=UserOptionsListDropDownMenu}"/>
+                        Width="55"
+                        Margin="0,0,5,0"
+                        Command="{Binding AddOptionCommand, ElementName=UserOptionsListDropDownMenu}"/>
+                    <Button Content="Edit" 
+                        Width="55"
+                        Margin="0,0,5,0"
+                        Command="{Binding EditOptionCommand, ElementName=UserOptionsListDropDownMenu}"/>
+                    <Button Content="Delete" 
+                        Width="65"
+                        Command="{Binding DeleteOptionCommand, ElementName=UserOptionsListDropDownMenu}"/>
                 </StackPanel>
                 <ComboBox
                     ItemsSource="{Binding Options, ElementName=UserOptionsListDropDownMenu}"

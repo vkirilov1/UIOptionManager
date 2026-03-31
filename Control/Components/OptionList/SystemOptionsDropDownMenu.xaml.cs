@@ -43,6 +43,13 @@ namespace Control.Components.OptionList
                 typeof(SystemOptionsDropDownMenu),
                 new PropertyMetadata(null));
 
+       public static readonly DependencyProperty FilterTextProperty =
+            DependencyProperty.Register(
+                nameof(FilterText),
+                typeof(string),
+                typeof(SystemOptionsDropDownMenu),
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+
         public IEnumerable Options
         {
             get { return (IEnumerable)GetValue(OptionsProperty); }
@@ -71,6 +78,12 @@ namespace Control.Components.OptionList
         {
             get { return (string)GetValue(OptionDescriptionProperty); }
             set { SetValue(OptionDescriptionProperty, value); }
+        }
+
+        public string FilterText
+        {
+            get => (string)GetValue(FilterTextProperty);
+            set => SetValue(FilterTextProperty, value);
         }
 
         public SystemOptionsDropDownMenu()

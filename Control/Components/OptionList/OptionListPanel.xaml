@@ -15,9 +15,8 @@
                 <DataTemplate>
                     <local:SystemOptionsDropDownMenu
                     ListName="{Binding Name}"
-                    Options="{Binding Options}"
-                    SelectedItem="{Binding SelectedOption}"
-                    OptionDescription="{Binding OptionDescription}"
+                    Options="{Binding FilteredOptions}"  SelectedItem="{Binding SelectedOption}"
+                    FilterText="{Binding FilterText, Mode=TwoWay}" OptionDescription="{Binding OptionDescription}"
                     Margin="10,0,10,0" />
                 </DataTemplate>
             </selectors:OptionListTemplateSelector.SystemOptionListTemplate>
@@ -26,9 +25,10 @@
                 <DataTemplate>
                     <local:UserOptionsDropDownMenu
                     ListName="{Binding Name}"
-                    Options="{Binding Options}"
-                    SelectedItem="{Binding SelectedOption}"
-                    AddOptionCommand="{Binding AddOptionCommand}"
+                    Options="{Binding FilteredOptions}" SelectedItem="{Binding SelectedOption}"
+                    FilterText="{Binding FilterText, Mode=TwoWay}" AddOptionCommand="{Binding AddOptionCommand}"
+                    EditOptionCommand="{Binding EditOptionCommand}"
+                    DeleteOptionCommand="{Binding DeleteOptionCommand}"
                     NewOptionName="{Binding NewOptionName}"
                     Margin="10,0,10,0" />
                 </DataTemplate>

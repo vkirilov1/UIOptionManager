@@ -3,12 +3,12 @@ using Control.Components.Users;
 using Control.Others.Commands;
 using Control.Others.Constants;
 using Control.ViewModel.OptionList;
+using Service.Model.Users;
 using Service.Others.Identifiers.Constants;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using Service.Model.Users;
 
 namespace Control.ViewModel.Common
 {

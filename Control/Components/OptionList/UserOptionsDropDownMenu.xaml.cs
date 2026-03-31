@@ -36,6 +36,18 @@ namespace Control.Components.OptionList
                 typeof(ICommand),
                 typeof(UserOptionsDropDownMenu));
 
+        public static readonly DependencyProperty DeleteOptionCommandProperty =
+            DependencyProperty.Register(
+                nameof(DeleteOptionCommand),
+                typeof(ICommand),
+                typeof(UserOptionsDropDownMenu));
+
+        public static readonly DependencyProperty EditOptionCommandProperty =
+            DependencyProperty.Register(
+                nameof(EditOptionCommand),
+                typeof(ICommand),
+                typeof(UserOptionsDropDownMenu));
+
         public static readonly DependencyProperty NewOptionNameProperty =
             DependencyProperty.Register(
                 nameof(NewOptionName),
@@ -51,6 +63,13 @@ namespace Control.Components.OptionList
                 typeof(string),
                 typeof(UserOptionsDropDownMenu),
                 new PropertyMetadata(null));
+
+        public static readonly DependencyProperty FilterTextProperty =
+            DependencyProperty.Register(
+                nameof(FilterText),
+                typeof(string),
+                typeof(UserOptionsDropDownMenu),
+                new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
         public IEnumerable Options
         {
@@ -76,6 +95,18 @@ namespace Control.Components.OptionList
             set => SetValue(AddOptionCommandProperty, value);
         }
 
+        public ICommand DeleteOptionCommand
+        {
+            get => (ICommand)GetValue(DeleteOptionCommandProperty);
+            set => SetValue(DeleteOptionCommandProperty, value);
+        }
+
+        public ICommand EditOptionCommand
+        {
+            get => (ICommand)GetValue(EditOptionCommandProperty);
+            set => SetValue(EditOptionCommandProperty, value);
+        }
+
         public string NewOptionName
         {
             get => (string)GetValue(NewOptionNameProperty);
@@ -86,6 +117,12 @@ namespace Control.Components.OptionList
         {
             get { return (string)GetValue(ListNameProperty); }
             set { SetValue(ListNameProperty, value); }
+        }
+
+        public string FilterText
+        {
+            get => (string)GetValue(FilterTextProperty);
+            set => SetValue(FilterTextProperty, value);
         }
 
         public UserOptionsDropDownMenu()
