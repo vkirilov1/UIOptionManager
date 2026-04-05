@@ -15,6 +15,8 @@ namespace DataLayer.Model.Users
 
         public required string Password { get; set; }
 
+        public required string Role { get; set; }
+
         public string? Email { get; set; }
     }
 }

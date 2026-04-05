@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Control.Components.OptionList"
              mc:Ignorable="d" 
              Name="AllOptionListsPanel"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="400">
 
     <UserControl.Resources>
         <selectors:OptionListTemplateSelector x:Key="OptionListSelector">
@@ -36,15 +36,18 @@
         </selectors:OptionListTemplateSelector>
     </UserControl.Resources>
 
-    <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Disabled">
-        <ItemsControl ItemsSource="{Binding OptionLists, ElementName=AllOptionListsPanel}"
-              ItemTemplateSelector="{StaticResource OptionListSelector}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
-    </ScrollViewer>
+    <ItemsControl ItemsSource="{Binding OptionLists, ElementName=AllOptionListsPanel}"
+                  ItemTemplateSelector="{StaticResource OptionListSelector}">
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="Margin" Value="0,0,0,15"/>
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
 </UserControl>

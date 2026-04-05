@@ -2,7 +2,7 @@
 using Service.Exceptions.User;
 using Service.Others.Factories;
 using Service.Others.OptionListLoggerDelegates;
-using Service.Others.PasswordHasher;
+using Service.Others.Security;
 
 namespace Service.Model.Users
 {
@@ -37,6 +37,7 @@ namespace Service.Model.Users
                 Name = name,
                 Username = username,
                 Password = hashedPassword,
+                Role = nameof(UserRoleEnum.Applicant),
                 Email = email
             };
 
@@ -58,19 +59,23 @@ namespace Service.Model.Users
             using var dbContext = DatabaseContextFactory.Create();
 
             var dbEntry = dbContext.Users
-                .SingleOrDefault(u => u.Username == username);
+                .SingleOrDefault(u => u.Username == username) ?? throw new UserNotFoundException(username);
 
-            if (dbEntry == null || !PasswordHasher.VerifyPassword(password, dbEntry.Password))
-                throw new UserNotFoundException(username);
+            if (!PasswordHasher.VerifyPassword(password, dbEntry.Password))
+                throw new IncorrectPasswordException(username);
 
             var logInf = new ActionOnLog(OLLDelegates.LogInformation);
-            logInf($"User {dbEntry.Name} with username: {dbEntry.Username} has logged in!");
+
+            Enum.TryParse(dbEntry.Role, out UserRoleEnum role);
+
+            logInf($"User {dbEntry.Name} with username: {dbEntry.Username} and role: {dbEntry.Role} has logged in!");
 
             return new User
             {
                 Id = dbEntry.Id,
                 Name = dbEntry.Name,
                 Username = dbEntry.Username,
+                Role = role,
                 Email = dbEntry.Email
             };
         }

@@ -20,30 +20,22 @@ namespace Control.ViewModel.OptionList
             set { _optionDescription = value; OnPropertyChanged(); }
         }
 
-        private OptionViewModel? _selectedOption;
-        public OptionViewModel? SelectedOption
+        protected override void UpdateServiceSelection(OptionViewModel? selected)
         {
-            get => _selectedOption;
-            set
+            if (selected != null && _systemOptionList != null)
             {
-                _selectedOption = value;
-                OnPropertyChanged();
-
-                if (_selectedOption != null && _systemOptionList != null)
+                try
                 {
-                    try
-                    {
-                        _service.UpdateSelectedOption(_systemOptionList, _selectedOption.Value);
+                    _service.UpdateSelectedOption(_systemOptionList, selected.Value);
 
-                        if (typeof(T) == typeof(SystemIdConstants.EmploymentType))
-                        {
-                            var selectedItem = SystemIdConstants.EmploymentType.GetAllValues()
-                                .FirstOrDefault(v => v.Name == _selectedOption.Value);
-                            DisplayEmploymentTypeHours(selectedItem);
-                        }
+                    if (typeof(T) == typeof(SystemIdConstants.EmploymentType))
+                    {
+                        var selectedItem = SystemIdConstants.EmploymentType.GetAllValues()
+                            .FirstOrDefault(v => v.Name == selected.Value);
+                        DisplayEmploymentTypeHours(selectedItem);
                     }
-                    catch (Exception e) { new ActionOnLog(OLLDelegates.LogError)(e.Message); }
                 }
+                catch (Exception e) { new ActionOnLog(OLLDelegates.LogError)(e.Message); }
             }
         }
 
@@ -59,7 +51,7 @@ namespace Control.ViewModel.OptionList
                     _options.Add(vmOption);
 
                     if (vmOption.Value == _systemOptionList.SelectedOption)
-                        _selectedOption = vmOption;
+                        SelectedOption = vmOption;
                 }
             }
             catch (Exception e) { new ActionOnLog(OLLDelegates.LogError)(e.Message); }

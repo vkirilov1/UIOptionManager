@@ -4,34 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Control.Components.Common"
-        xmlns:listPanel="clr-namespace:Control.Components.OptionList"
+        xmlns:app="clr-namespace:Control.Components.JobApplication"
         mc:Ignorable="d"
-        Title="MainUserScreen"
-        Height="450"
-        Width="800"
-        MinWidth="600"
-        MinHeight="400"
-        WindowStartupLocation="CenterScreen">
+        Title="Job Application Portal"
+        Height="700" 
+        Width="1000"
+        MinWidth="800"
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F8FF">
+    <Grid>
+        <Border Background="White" 
+                BorderBrush="Black" 
+                BorderThickness="1" 
+                CornerRadius="8"
+                Width="600" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center"
+                Padding="20">
 
-    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-        <TextBlock 
-            Text="{Binding Greeting}"
-            FontSize="24"
-            Margin="0,0,0,20"
-            HorizontalAlignment="Center"
-            Grid.Row="0"/>
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="270" RenderingBias="Quality" ShadowDepth="2" Opacity="0.2"/>
+            </Border.Effect>
 
-        <listPanel:OptionListPanel
-                OptionLists="{Binding OptionLists}"
-                HorizontalAlignment="Center"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">
 
-        <Button 
-            Content="Logout"
-            Command="{Binding LogoutCommand}"
-            Width="120" 
-            Height="30"
-            Margin="0,20,0,0"
-            HorizontalAlignment="Center"
-            Grid.Row="2"/>
-    </StackPanel>
+                    <TextBlock 
+                        Text="Job Application Demo"
+                        FontSize="26"
+                        FontWeight="Bold"
+                        Margin="0,0,0,10"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock 
+                        Text="{Binding Greeting}"
+                        FontSize="16"
+                        Foreground="#555"
+                        Margin="0,0,0,25"
+                        HorizontalAlignment="Center"/>
+
+                    <Button Content="View My Application History"
+                        Command="{Binding ViewHistoryCommand}"
+                        Background="#E3F2FD" 
+                        Foreground="#1976D2"
+                        FontWeight="SemiBold"
+                        BorderBrush="#BBDEFB"
+                        Width="250" Height="30"
+                        Margin="0,0,0,20"
+                        HorizontalAlignment="Center">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <app:JobApplicationForm
+                        DataContext="{Binding JobApplication}"
+                        HorizontalAlignment="Stretch"/>
+
+                    <Button 
+                        Content="Logout"
+                        Command="{Binding LogoutCommand}"
+                        Width="120" 
+                        Height="35"
+                        Margin="0,30,0,10"
+                        Background="#F5F5F5"
+                        HorizontalAlignment="Center"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
 </Window>

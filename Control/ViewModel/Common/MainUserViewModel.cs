@@ -1,11 +1,10 @@
 ﻿using Control.Components.Common;
+using Control.Components.JobApplication;
 using Control.Components.Users;
 using Control.Others.Commands;
-using Control.Others.Constants;
-using Control.ViewModel.OptionList;
+using Control.ViewModel.JobApplicationVM;
 using Service.Model.Users;
-using Service.Others.Identifiers.Constants;
-using System.Collections.ObjectModel;
+using Service.Service;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -16,29 +15,34 @@ namespace Control.ViewModel.Common
     {
         public string Greeting => $"Hi, {User.Name}";
 
-        public ObservableCollection<BaseOptionListViewModel> OptionLists { get; set; }
+        public JobApplicationViewModel JobApplication { get; set; }
+
+        private User User { get; }
+
+        public ICommand ViewHistoryCommand { get; }
 
         public ICommand LogoutCommand { get; }
 
-        private User User { get; }
+        private JobApplicationService _service = new();
 
         public MainUserViewModel(User user)
         {
             User = user;
-            OptionLists = [];
 
-            LoadOptionLists(user.Id);
+            JobApplication = new JobApplicationViewModel(user);
+            ViewHistoryCommand = new DelegateCommandNoParam(OpenHistory);
             LogoutCommand = new DelegateCommandNoParam(Logout);
         }
 
-        private void LoadOptionLists(int userId)
+        private void OpenHistory()
         {
-            OptionLists.Clear();
-
-            OptionLists.Add(new SystemOptionListViewModel<SystemIdConstants.EmploymentType>(OptionListIdentifier.EmploymentType, userId));
-            OptionLists.Add(new UserOptionsListViewModel(OptionListIdentifier.Roles, userId, "User can enter and choose different roles"));
-            OptionLists.Add(new UserOptionsListViewModel(OptionListIdentifier.Hobbies, userId));
-            OptionLists.Add(new MixedOptionListViewModel<SystemIdConstants.WorkLocation>(OptionListIdentifier.WorkLocations, userId));
+            var history = _service.GetUserApplicationHistory(User.Id);
+            var historyWindow = new JobApplicationHistoryWindow
+            {
+                DataContext = new { History = history },
+                Owner = Application.Current.MainWindow
+            };
+            historyWindow.ShowDialog();
         }
 
         private void Logout()

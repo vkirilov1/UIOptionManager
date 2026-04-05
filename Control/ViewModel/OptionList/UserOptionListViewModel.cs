@@ -28,26 +28,15 @@ namespace Control.ViewModel.OptionList
             }
         }
 
-        private OptionViewModel? _selectedOption;
-        public OptionViewModel? SelectedOption
+        protected override void UpdateServiceSelection(OptionViewModel? selected)
         {
-            get => _selectedOption;
-            set
+            if (selected != null && _userOptionList != null)
             {
-                _selectedOption = value;
-                OnPropertyChanged();
-
-                if (_selectedOption != null && _userOptionList != null)
+                try
                 {
-                    try
-                    {
-                        _service.UpdateSelectedOption(_userOptionList, _selectedOption.Value);
-                    }
-                    catch (Exception e)
-                    {
-                        new ActionOnLog(OLLDelegates.LogError)(e.Message);
-                    }
+                    _service.UpdateSelectedOption(_userOptionList, selected.Value);
                 }
+                catch (Exception e) { new ActionOnLog(OLLDelegates.LogError)(e.Message); }
             }
         }
 
@@ -70,7 +59,7 @@ namespace Control.ViewModel.OptionList
 
                     if (!string.IsNullOrEmpty(_userOptionList.SelectedOption) && vmOption.Value == _userOptionList.SelectedOption)
                     {
-                        _selectedOption = vmOption;
+                        SelectedOption = vmOption;
                     }
                 }
 

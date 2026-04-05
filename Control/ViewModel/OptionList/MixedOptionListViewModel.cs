@@ -22,25 +22,17 @@ internal class MixedOptionListViewModel<T> : BaseOptionListViewModel, INotifyPro
         set { _newOptionName = value; OnPropertyChanged(); CommandManager.InvalidateRequerySuggested(); }
     }
 
-    private OptionViewModel? _selectedOption;
-    public OptionViewModel SelectedOption
+    protected override void UpdateServiceSelection(OptionViewModel? selected)
     {
-        get => _selectedOption;
-        set
+        if (selected != null && _mixedOptionList != null)
         {
-            _selectedOption = value;
-            OnPropertyChanged();
-
-            if (_selectedOption != null && _mixedOptionList != null)
+            try
             {
-                try
-                {
-                    _service.UpdateSelectedOption(_mixedOptionList, _selectedOption.Value);
-                }
-                catch (Exception e)
-                {
-                    new ActionOnLog(OLLDelegates.LogError)(e.Message);
-                }
+                _service.UpdateSelectedOption(_mixedOptionList, selected.Value);
+            }
+            catch (Exception e)
+            {
+                new ActionOnLog(OLLDelegates.LogError)(e.Message);
             }
         }
     }
@@ -62,7 +54,7 @@ internal class MixedOptionListViewModel<T> : BaseOptionListViewModel, INotifyPro
                 _options.Add(vmOption);
 
                 if (vmOption.Value == _mixedOptionList.SelectedOption)
-                    _selectedOption = vmOption;
+                    SelectedOption = vmOption;
             }
 
             AddOptionCommand = new DelegateCommand<string>(_ => AddOption(), _ => CanAddOption());

@@ -1,4 +1,5 @@
-﻿using DataLayer.Model.Option;
+﻿using DataLayer.Model.JobApplication;
+using DataLayer.Model.Option;
 using DataLayer.Model.OptionList;
 using DataLayer.Model.Users;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace DataLayer.Database
         public DbSet<UserOptionDBEntry> UserOptions { get; set; }
         public DbSet<SystemOptionListDBEntry> SystemOptionLists { get; set; }
         public DbSet<UserDBEntry> Users { get; set; }
+        public DbSet<JobApplicationDBEntry> Application { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -69,6 +71,12 @@ namespace DataLayer.Database
                 .HasOne(l => l.User)
                 .WithMany()
                 .HasForeignKey(l => l.UserDBEntryId);
+
+            modelBuilder.Entity<JobApplicationDBEntry>()
+                .HasOne(a => a.User)
+                .WithMany()
+                .HasForeignKey(a => a.UserDBEntryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

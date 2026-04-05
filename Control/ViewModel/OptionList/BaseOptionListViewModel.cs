@@ -31,6 +31,22 @@ namespace Control.ViewModel
             }
         }
 
+        private OptionViewModel? _selectedOption;
+        public OptionViewModel? SelectedOption
+        {
+            get => _selectedOption;
+            set
+            {
+                if (_selectedOption == value) return;
+                _selectedOption = value;
+                OnPropertyChanged();
+
+                UpdateServiceSelection(value);
+            }
+        }
+
+        protected abstract void UpdateServiceSelection(OptionViewModel? selected);
+
         internal BaseOptionListViewModel(OptionListIdentifier listIdentifier)
         {
             Name = listIdentifier.ToString() ?? throw new EmptyListNameException(nameof(BaseOptionListViewModel));

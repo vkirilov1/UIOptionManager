@@ -40,7 +40,8 @@ namespace Control.ViewModel.Users
             {
                 var user = UserFactory.LoginUser(Username.Trim(), Password.Trim());
 
-                var mainWindow = new MainUserScreen(user);
+                Window mainWindow = user.Role == UserRoleEnum.Applicant ? new MainUserScreen(user) : new ReviewScreen(user);
+
                 mainWindow.Show();
 
                 Application.Current.Windows
